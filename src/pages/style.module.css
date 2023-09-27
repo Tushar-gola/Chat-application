@@ -1,0 +1,83 @@
+.main_color {
+    color: #4eac6d;
+}
+
+.main_bg_color {
+    background-color: #4eac6d;
+}
+
+.secondary_color {
+    color: #4eac6d;
+    opacity: 20%;
+}
+
+.secondary_bg_color {
+    background-color: #4eac6d;
+    opacity: 20%;
+}
+
+.light_grey_opacity_75 {
+    color: #495057;
+    opacity: 75%;
+}
+
+.black {
+    color: #212529;
+}
+
+.light_white {
+    color: #ffffff;
+    opacity: 50%;
+}
+
+.link_green_color {
+    color: #42925d;
+}
+
+.link_grey_color {
+    color: #878a92;
+}
+
+.bg_black {
+    background-color: #2e2e2e;
+}
+
+.yellow_color {
+    color: #665429;
+}
+
+.yellow_bg_color {
+    background-color: #fff6e0;
+}
+
+.auth_padding {
+    padding: 0 26rem;
+}
+
+@media screen and (max-width: 768px)  {
+
+    .auth_padding {
+        padding: 0 .8rem;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1000px) {
+
+    .auth_padding {
+        padding: 0 8rem;
+    }
+}
+
+@media screen and (min-width: 1001px) and (max-width: 1700px) {
+
+    .auth_padding {
+        padding: 0 18rem;
+    }
+}
+
+/* ttop */
+/* <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path d="M8.5,18l3.5,4l3.5_4H19c1.103,0,2_0.897,2_2V4c0_1.103_0.897_2_2_2H5C3.897,2,3,2.897,3,4v12c0,1.103,0.897,2,2,2H8.5z M7,7h10v2H7V7z M7,11h7v2H7V11z"></path></svg> */
+
+/* Profile */
+
+/* bx bx_user_circle */
