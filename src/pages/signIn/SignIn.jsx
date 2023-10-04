@@ -10,16 +10,13 @@ import {
   FilledInput,
   Checkbox,
   FormControlLabel,
-  FormHelperText , Snackbar, Alert
+  FormHelperText, Snackbar, Alert
 } from "@mui/material";
 import Google from '../../assets/image/google.svg'
 import Style from "../style.module.css";
 import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
-  Facebook as FacebookIcon,
-  Twitter as TwitterIcon,
-  Google as GoogleIcon,
 } from "@mui/icons-material";
 
 import Logo from "../../assets/image/auth_logo.png";
@@ -169,7 +166,7 @@ export default function SignIn() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     color="success"
-                    label={errors.email && touched.email ? "Error" : "Email"}
+                    label={"Email"}
                     error={errors.email && touched.email ? true : false}
                   />
                   <FormHelperText style={errorStyle}>

@@ -1,11 +1,10 @@
-import { Box, Grid, Button } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import ChatTopArea from "./ChatTopArea";
 import ChatInputArea from './ChatInputArea'
 import BgPng from '../assets/image/pattern-05.ffd181cdf9a08b200998.png'
 import { useThemeContext } from "../theme/ThemeContextProvider";
-// import BackGround from "../assets/image/pattern-05.ffd181cdf9a08b200998.png";
 const ChatTopBottomAreaGrid = {
   height: { xs: "70px", lg: "92px" },
 };
@@ -14,28 +13,21 @@ const ChatAreaGrid = {
     xs: `calc(100dvh - 140px)`,
     lg: `calc(100dvh - 184px)`,
   },
-  // backgroundColor: "#f2f2f2",
   overflowY: "auto",
   padding: "1rem",
 };
 
 export default function ChatSlider() {
   const open = useSelector((state) => state.open.open);
-  const id = useSelector((state) => state.open.id);
-  const { mode, toggleColorMode } = useThemeContext();
-
+  const { mode } = useThemeContext();
   const chatBoxRef = useRef(null);
   const BoxContainer = {
-    // background: `${mode == "dark" && '#2e2e2e'}`,
-
     width: "100%",
     height: "100dvh",
     position: { xs: "fixed", lg: "static" },
     right: { xs: `${open}`, lg: "0" },
     top: 0,
-    transition: "1s ease-in-out",
     zIndex: "1000000000000000",
-
   };
   const currentTime = new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit', hour12: true });
   const [messages, setMessages] = useState([
@@ -169,7 +161,6 @@ export default function ChatSlider() {
   const [newMessage, setNewMessage] = useState('');
   const scrollToBottom = () => {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-
   };
 
   useEffect(() => {
@@ -178,7 +169,6 @@ export default function ChatSlider() {
   }, [messages]);
 
   const handleScroll = () => {
-
     scrollToBottom();
   };
 
@@ -204,7 +194,7 @@ export default function ChatSlider() {
 
   return (
     <>
-      <Box sx={{ ...BoxContainer }}>
+      <Box sx={{ ...BoxContainer, background: `${mode === "dark" ? "#000" : null}` }}>
         <Grid container >
           <Grid
             item
@@ -214,7 +204,7 @@ export default function ChatSlider() {
             <ChatTopArea />
           </Grid>
 
-          <Grid item xs={12} sx={{ ...ChatAreaGrid, backgroundImage: `url(${BgPng})` }} ref={chatBoxRef} >
+          <Grid item xs={12} sx={{ ...ChatAreaGrid, backgroundImage: `url(${BgPng})`, }} ref={chatBoxRef} >
             <Grid container ref={chatBoxRef}>
               {messages.map((message, index) => (
                 <Grid item key={index} xs={12} sx={{
@@ -222,12 +212,12 @@ export default function ChatSlider() {
                   flexDirection: "column"
                 }}>
                   <div
-                    className={`message ${message.sender === 'You' ? 'sender' : 'receiver'} relative ${mode == "dark" ? "bg-[#383838] text-[#adb5bd]" : "bg-[#FFFFFF] text-[#000]"}`}
+                    className={`message ${message.sender === 'You' ? 'sender' : 'receiver'} relative ${mode === "dark" ? "bg-[#383838] text-[#dae3eb]" : "bg-[#FFFFFF] text-[#000]"}`}
                   >
                     {message.text}
                     <div className=" right-0 bottom-0 text-[10px] ">{message.timestamp}</div>
                   </div>
-                  <div className={` ${ message.sender === 'You' ? 'sender-time' : 'receiver-time' } message-timestamp text-[11px]`}>{"Tushar Gola"}</div>
+                  <div className={` ${message.sender === 'You' ? 'sender-time' : 'receiver-time'} message-timestamp text-[11px]`}>{"Tushar Gola"}</div>
                 </Grid>
               ))}
             </Grid>

@@ -8,8 +8,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import MessageIcon from "@mui/icons-material/Message";
 import NightsStayOutlinedIcon from "@mui/icons-material/NightsStayOutlined";
 import ForumIcon from "@mui/icons-material/Forum";
-import { useSelector, useDispatch } from "react-redux";
-import { EmptyComponent, ChangeComponent } from "../redux/slices/ToggleComponents";
+import { useDispatch } from "react-redux";
+import { ChangeComponent } from "../redux/slices/ToggleComponents";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { $crud } from '../CRUD/Crud'
 import Backdrop from '@mui/material/Backdrop';
@@ -72,7 +72,7 @@ export default function SliderBar() {
       label: "Settings",
       icon: <SettingsIcon sx={{ fontSize: "2rem", color: "grey" }} />,
     },
-  
+
   ];
   const HandleLogout = async () => {
     const apiUrl = "/delete/user-logout"

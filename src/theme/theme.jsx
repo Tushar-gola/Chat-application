@@ -10,7 +10,6 @@ const white = "#adb5bd";
 const lightGray = "#f1f1f1";
 const middleGray = "#687e96";
 const dark = "#101418";
-const lightDark = "#6983ac";
 const middleDark = "#262626";
 
 export const getDesignTokens = (mode) => ({

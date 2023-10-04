@@ -11,6 +11,7 @@ export class CrudFactory extends CrudRequest {
     segments.reduce((url, segment) => url + segment, this.baseUrl);
 
   async retrieve(url, data = {}, requestOptions = {}) {
+    console.log(url, data);
     return this.send({
       method: "GET",
       // url: `retrieve/${url}`,
@@ -48,7 +49,7 @@ export class CrudFactory extends CrudRequest {
 
   async send(requestOptions = {}) {
     const { url, data, method, notify = true } = requestOptions;
-
+console.log(data,"llllllllll");
     const options = {
       ...requestOptions.ajaxOptions,
       method,

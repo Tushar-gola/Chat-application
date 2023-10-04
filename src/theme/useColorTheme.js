@@ -1,6 +1,6 @@
 import {createTheme, useMediaQuery} from "@mui/material";
 import React from "react";
-import theme, {getDesignTokens} from "./theme";
+import  {getDesignTokens} from "./theme";
 
 export const useColorTheme = () => {
     const isDarkModeEnabled = useMediaQuery('(prefers-color-scheme: dark)');

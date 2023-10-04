@@ -2,7 +2,7 @@ import { Box, Button } from '@mui/material'
 import React from 'react'
 import BgPng from '../../assets/image/pattern-05.ffd181cdf9a08b200998.png'
 import MessageIcon from "@mui/icons-material/Message";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const FirstBoxStyle = {
     width: "100%", height: "100%", backgroundImage: `url(${BgPng})`, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", gap: "1rem"
 }

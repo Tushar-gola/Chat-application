@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react'
-import { Button, Dialog, DialogActions, Slide, Box, Grid } from '@mui/material';
+import { Button, Dialog, Slide, Box, Grid } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SearchIcon from '@mui/icons-material/Search';
 import UserFront from '../assets/image/UserProfile/avatar-1.9c8e605558cece65b06c.jpg'
 import { useThemeContext } from "../theme/ThemeContextProvider";
+import { $crud } from '../CRUD/Crud'
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function SearchUsers({ opened, onClose }) {
     const [open, setOpen] = React.useState(false);
-    const { mode, toggleColorMode } = useThemeContext();
+    const { mode } = useThemeContext();
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -23,6 +24,24 @@ export default function SearchUsers({ opened, onClose }) {
     useEffect(() => {
         setOpen(opened)
     }, [opened])
+
+    const getData = async (value) => {
+        console.log(value, "value");
+        const apiUrl = "/retrieve/debounce-use";
+        const res = await $crud.retrieve(apiUrl, value[0]);
+        console.log(res, "res");
+    }
+
+    const debounce = (func, time) => {
+        let Timer;
+        return (...args) => {
+            clearTimeout(Timer)
+            Timer = setTimeout(() => {
+                func(args)
+            }, time)
+        }
+    }
+    const debounceGetData = debounce(getData, 2000);
     return (
         <>
             <Button variant="outlined" className='bg-[#4eac6d7b]' color="success"
@@ -53,7 +72,7 @@ export default function SearchUsers({ opened, onClose }) {
                                         <input
                                             type="text"
                                             placeholder="Search here..."
-                                            // className="form-input py-3 px-10 text-md w-full outline-none rounded-md bg-[#f6f6f9]"
+                                            onChange={(e) => debounceGetData(e.target.value)}
                                             className={`form-input py-3 px-10 text-md w-full outline-none rounded-md ${mode == "dark" ? "bg-[#383838]  text-[#adb5bd]" : null} `}
                                         />
                                         <SearchIcon sx={{ position: "absolute", top: "25%", left: "1%", color: "grey" }} />

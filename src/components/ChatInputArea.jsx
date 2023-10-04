@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grid, Button } from "@mui/material";
+import { Box, Grid ,Button} from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 import MicIcon from "@mui/icons-material/Mic";
@@ -10,20 +10,19 @@ export default function ChatInputArea({ handleSendMessage, setNewMessage, newMes
     const [inputValue, setInputValue] = React.useState(0);
     const [selectedEmoji, setSelectedEmoji] = React.useState(false);
     const inputRef = React.useRef(null);
-    const { mode, toggleColorMode } = useThemeContext();
+    const { mode } = useThemeContext();
     const AddEmoji = (item) => {
         setNewMessage(prev => prev + item?.emoji)
     }
     return (
         <>
             <div style={{ position: "absolute", bottom: "92px" }}>
-                {selectedEmoji && <EmojiPicker onEmojiClick={AddEmoji} lazyLoadEmojis={true} theme={mode == "dark" ? "dark" : "light"} />}
+                {selectedEmoji && <EmojiPicker onEmojiClick={AddEmoji} lazyLoadEmojis={true} theme={mode === "dark" ? "dark" : "light"} />}
             </div>
 
             <Grid
                 container
                 sx={{
-                    // background: "#f2f2f2",
                     height: "100%",
                     alignItems: "center",
                     padding: { xs: "0 1rem", lg: "0rem 1.5rem" },
@@ -46,11 +45,11 @@ export default function ChatInputArea({ handleSendMessage, setNewMessage, newMes
                     <input
                         type="text"
                         placeholder="Type your message..."
-                        className={`form-input py-3 px-3 text-md w-[90%] lg:w-[100%] outline-none rounded-md ${mode == "dark" ? "bg-[#383838]  text-[#adb5bd]" : null} `}
+                        className={`form-input py-3 px-3 text-md w-[90%] lg:w-[100%] outline-none rounded-md ${mode === "dark" ? "bg-[#383838]  text-[#adb5bd]" : null} `}
                         autoFocus
                         value={newMessage}
                         ref={inputRef}
-                        onKeyDown={(e) => e.key == "Enter" ? handleSendMessage() : null}
+                        onKeyDown={(e) => e.key === "Enter" ? handleSendMessage() : null}
                         onChange={(e) => { setNewMessage(e.target.value) }}
                     />
                 </Grid>
@@ -69,7 +68,7 @@ export default function ChatInputArea({ handleSendMessage, setNewMessage, newMes
             <Grid
                 container
                 sx={{
-                    background: "#f2f2f2",
+                    // background: "#f2f2f2",
                     height: "100%",
                     alignItems: "center",
                     padding: { xs: "0 1rem", lg: "0rem 1.5rem" },
@@ -83,6 +82,7 @@ export default function ChatInputArea({ handleSendMessage, setNewMessage, newMes
                         autoFocus
                         value={newMessage}
                         ref={inputRef}
+                        onKeyDown={(e) => e.key === "Enter" ? handleSendMessage() : null}
                         onChange={(e) => { setNewMessage(e.target.value); setInputValue(e.target.value.length) }}
                         className="form-input py-3 px-3 text-md w-[100%] lg:w-[100%] outline-none rounded-md bg-[#ffffff]  "
                     />

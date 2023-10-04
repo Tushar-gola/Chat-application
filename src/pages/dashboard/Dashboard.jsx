@@ -3,17 +3,13 @@ import { Grid } from "@mui/material";
 import SliderBar from "../../components/SliderBar";
 import ChatBox from "../../components/ChatBox";
 import ChatSlider from "../../components/ChatSlider";
-import { useSelector, useDispatch } from "react-redux";
-import { open, close } from "../../redux/slices/OpenChatBox";
+import { useSelector } from "react-redux";
 import FindUser from "../../components/FindUser";
 import ChatStarting from "../chatstarting/ChatStarting";
 
 export default function Dashboard() {
-
-  const [open, setOpen] = React.useState(true);
   const ToggleComponent = useSelector((state) => state.toggle.name)
   const id = useSelector((state) => state.open.id);
-  console.log(id, ToggleComponent == "Chats");
 
   return (
     <>
@@ -33,13 +29,13 @@ export default function Dashboard() {
             </Grid>
 
             <Grid item xs={12} lg={10}>
-              {ToggleComponent == "Profile" ? <FindUser /> : ToggleComponent == "Chats" ? <ChatBox /> : null}
+              {ToggleComponent === "Profile" ? <FindUser /> : ToggleComponent === "Chats" ? <ChatBox /> : null}
             </Grid>
           </Grid>
         </Grid>
 
         <Grid item xs={0} md={9} lg={9} height={"100dvh"} position={'relative'}>
-          {ToggleComponent == "Chats" ? <ChatSlider /> : id !== 0 || !(ToggleComponent == "Chats")  ? <ChatStarting /> : null}
+          {ToggleComponent === "Chats" ? <ChatSlider /> : id !== 0 || !(ToggleComponent === "Chats") ? <ChatStarting /> : null}
         </Grid>
 
         <Grid

@@ -1,10 +1,10 @@
 import React from "react";
 import { Grid, Box, TextField, InputAdornment, FormControl, IconButton, FilledInput, Checkbox, FormControlLabel, FormHelperText, InputLabel, Snackbar, Alert } from "@mui/material";
-import { Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon, Facebook as FacebookIcon, Twitter as TwitterIcon, Google as GoogleIcon } from "@mui/icons-material";
+import { Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
 import { auth, provider } from "../../auth/config";
-import { signInWithPopup, signOut, getAuth } from "firebase/auth";
+import { signInWithPopup, signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { SignUpAuth } from '../../schemas/index';
@@ -353,7 +353,7 @@ export default function SignUp() {
       </Grid>
 
       <Box sx={{ ...imageStyle }}>
-        <img src={Logo} alt="Image description" />
+        <img src={Logo} alt="Image_description" />
       </Box>
 
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
