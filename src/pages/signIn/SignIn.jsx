@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   Grid,
   Box,
@@ -10,46 +10,46 @@ import {
   FilledInput,
   Checkbox,
   FormControlLabel,
-  FormHelperText, Snackbar, Alert
-} from "@mui/material";
-import Google from '../../assets/image/google.svg'
-import Style from "../style.module.css";
+  FormHelperText, Snackbar, Alert,
+} from '@mui/material';
+import Google from '../../assets/image/google.svg';
+import Style from '../style.module.css';
 import {
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
-} from "@mui/icons-material";
+} from '@mui/icons-material';
 
-import Logo from "../../assets/image/auth_logo.png";
-import { useFormik } from "formik";
-import { Link } from "react-router-dom";
-import { auth, provider } from "../../auth/config";
-import { signInWithPopup } from "firebase/auth";
-import { $crud } from '../../CRUD/Crud'
-import LoadingButton from "@mui/lab/LoadingButton";
-import { useNavigate } from "react-router-dom";
-import { SignInAuth } from '../../schemas/index';
+import Logo from '../../assets/image/auth_logo.png';
+import {useFormik} from 'formik';
+import {Link} from 'react-router-dom';
+import {auth, provider} from '../../auth/config';
+import {signInWithPopup} from 'firebase/auth';
+import {$crud} from '../../CRUD/Crud';
+import LoadingButton from '@mui/lab/LoadingButton';
+import {useNavigate} from 'react-router-dom';
+import {SignInAuth} from '../../schemas/index';
 const gridRightStyle = {
   padding: {
-    xs: "0rem 0rem",
-    md: "1.5rem",
+    xs: '0rem 0rem',
+    md: '1.5rem',
   },
 };
 
 const imageStyle = {
-  width: "40%",
-  position: "absolute",
-  bottom: "0",
-  left: "4rem",
-  display: { xs: "none", lg: "block" },
+  width: '40%',
+  position: 'absolute',
+  bottom: '0',
+  left: '4rem',
+  display: {xs: 'none', lg: 'block'},
 };
-const errorStyle = { color: 'red', fontSize: ".8rem", letterSpacing: ".1rem", height: ".6rem" }
+const errorStyle = {color: 'red', fontSize: '.8rem', letterSpacing: '.1rem', height: '.6rem'};
 export default function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
-  const [loading, setLoading] = React.useState(false)
-  const [snackError, setSnackError] = React.useState({ type: "", message: "" })
+  const [loading, setLoading] = React.useState(false);
+  const [snackError, setSnackError] = React.useState({type: '', message: ''});
   const [open, setOpen] = React.useState(false);
-  let navigation = useNavigate();
+  const navigation = useNavigate();
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClick = () => {
     setOpen(true);
@@ -58,33 +58,32 @@ export default function SignIn() {
   const handleClose = () => {
     setOpen(false);
   };
-  const { handleBlur, handleSubmit, handleChange, values, errors, touched, setErrors } = useFormik({
+  const {handleBlur, handleSubmit, handleChange, errors, touched, setErrors} = useFormik({
     initialValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
-    validationSchema: SignInAuth
-    ,
+    validationSchema: SignInAuth,
     onSubmit: async (values) => {
-      setLoading(true)
-      const apiUrl = "/create/login-with-email";
+      setLoading(true);
+      const apiUrl = '/create/login-with-email';
       const registrationSuccess = await registerUser(values, apiUrl);
       if (registrationSuccess) {
-        navigation("/dashboard");
-        setLoading(false)
+        navigation('/dashboard');
+        setLoading(false);
       } else {
-        setLoading(false)
+        setLoading(false);
       }
     },
   });
 
   const HandleGoogleAuth = async () => {
     try {
-      setChecked(true)
-      const { user, _tokenResponse } = await signInWithPopup(auth, provider);
-      const { uid, email } = user;
-      const { firstName, lastName, fullName, photoUrl, idToken } = _tokenResponse;
-      const apiUrl = "/create/google-login";
+      setChecked(true);
+      const {user, _tokenResponse} = await signInWithPopup(auth, provider);
+      const {uid, email} = user;
+      const {firstName, lastName, fullName, photoUrl, idToken} = _tokenResponse;
+      const apiUrl = '/create/google-login';
       const registrationSuccess = await registerUser({
         uid,
         email,
@@ -95,32 +94,31 @@ export default function SignIn() {
         idToken,
       }, apiUrl);
       if (registrationSuccess) {
-        navigation("/dashboard");
-        setLoading(false)
+        navigation('/dashboard');
+        setLoading(false);
       }
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-
   };
 
   const registerUser = async (userData, apiUrl) => {
     try {
       const res = await $crud.post(apiUrl, userData);
       if (res?.errors) {
-        const { path: keyName, msg: message } = res?.errors[0];
-        setErrors({ [keyName]: message });
+        const {path: keyName, msg: message} = res?.errors[0];
+        setErrors({[keyName]: message});
         return false; // Registration failed due to errors
-      } else if (res.type == "success") {
-        localStorage.setItem("token", res?.data?.token);
+      } else if (res.type == 'success') {
+        localStorage.setItem('token', res?.data?.token);
         return true; // Successful registration
       }
     } catch (error) {
-      console.log(error, "error");
-      setSnackError({ type: error?.type, message: error?.message })
-      handleClick()
+      console.log(error, 'error');
+      setSnackError({type: error?.type, message: error?.message});
+      handleClick();
       return false; // Registration failed due to an exception
     }
   };
@@ -128,7 +126,7 @@ export default function SignIn() {
   return (
     <main
       className={Style.main_bg_color}
-      style={{ width: "100%", height: "100vh" }}
+      style={{width: '100%', height: '100vh'}}
     >
       <Grid container>
         <Grid
@@ -138,7 +136,7 @@ export default function SignIn() {
           md={0}
           sm={0}
           xs={0}
-          sx={{ height: "100vh" }}
+          sx={{height: '100vh'}}
         ></Grid>
 
         <Grid item xl={9} lg={9} md={12} sm={12} xs={12} sx={gridRightStyle}>
@@ -150,7 +148,7 @@ export default function SignIn() {
 
             <form
               className={Style.auth_padding}
-              style={{ paddingTop: "2rem" }}
+              style={{paddingTop: '2rem'}}
               onSubmit={handleSubmit}
             >
               <Grid container spacing={2}>
@@ -166,7 +164,7 @@ export default function SignIn() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     color="success"
-                    label={"Email"}
+                    label={'Email'}
                     error={errors.email && touched.email ? true : false}
                   />
                   <FormHelperText style={errorStyle}>
@@ -179,7 +177,7 @@ export default function SignIn() {
                     htmlFor="filled-adornment-password"
                     className="block mb-1"
                   >
-                    {errors.password && touched.password ? "Error" : "Password"}
+                    {errors.password && touched.password ? 'Error' : 'Password'}
                   </label>
                   <FormControl variant="filled" fullWidth>
                     <InputLabel
@@ -192,7 +190,7 @@ export default function SignIn() {
                     <FilledInput
                       id="filled-adornment-password"
                       name="password"
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       error={errors.password && touched.password ? true : false}
@@ -233,11 +231,11 @@ export default function SignIn() {
                     disabled={checked}
                     className="bg-[#4eac6d] w-full text-white rounded-lg py-2 text-xl "
                     sx={{
-                      backgroundColor: "#4eac6d",
-                      color: "#fff",
-                      padding: ".5rem 0",
+                      'backgroundColor': '#4eac6d',
+                      'color': '#fff',
+                      'padding': '.5rem 0',
                       '&:hover': {
-                        backgroundColor: "#4eac6d"
+                        backgroundColor: '#4eac6d',
                       },
 
                     }}
@@ -266,12 +264,12 @@ export default function SignIn() {
 
                     <Grid item xs={12} className="text-center mt-6">
                       <h2>
-                        Don't have an account ?
+                        Don&apos;t have an account ?
                         <Link
                           to="/signUp"
                           className="text-[#4eac6d] font-medium"
                         >
-                          {" "}
+                          {' '}
                           Register
                         </Link>
                       </h2>
@@ -284,11 +282,11 @@ export default function SignIn() {
         </Grid>
       </Grid>
 
-      <Box sx={{ ...imageStyle }}>
+      <Box sx={{...imageStyle}}>
         <img src={Logo} alt="Image description" />
       </Box>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={snackError.type || 'info'} sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity={snackError.type || 'info'} sx={{width: '100%'}}>
           {snackError.message}
         </Alert>
       </Snackbar>

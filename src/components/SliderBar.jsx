@@ -1,25 +1,26 @@
-import { Box, IconButton, Tooltip } from "@mui/material";
-import React from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-import AddIcCallIcon from "@mui/icons-material/AddIcCall";
-import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
-import SettingsIcon from "@mui/icons-material/Settings";
-import MessageIcon from "@mui/icons-material/Message";
-import NightsStayOutlinedIcon from "@mui/icons-material/NightsStayOutlined";
-import ForumIcon from "@mui/icons-material/Forum";
-import { useDispatch } from "react-redux";
-import { ChangeComponent } from "../redux/slices/ToggleComponents";
+/* eslint-disable new-cap */
+import {Box, IconButton, Tooltip} from '@mui/material';
+import React from 'react';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
+import AddIcCallIcon from '@mui/icons-material/AddIcCall';
+import BookmarkAddIcon from '@mui/icons-material/BookmarkAdd';
+import SettingsIcon from '@mui/icons-material/Settings';
+import MessageIcon from '@mui/icons-material/Message';
+import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
+import ForumIcon from '@mui/icons-material/Forum';
+import {useDispatch} from 'react-redux';
+import {ChangeComponent} from '../redux/slices/ToggleComponents';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { $crud } from '../CRUD/Crud'
+import {$crud} from '../CRUD/Crud';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import LightModeIcon from '@mui/icons-material/LightMode';
-import { useThemeContext } from "../theme/ThemeContextProvider";
+import {useThemeContext} from '../theme/ThemeContextProvider';
 export default function SliderBar() {
-  let dispatch = useDispatch();
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const { mode, toggleColorMode } = useThemeContext();
+  const {mode, toggleColorMode} = useThemeContext();
   const handleClose = () => {
     setOpen(false);
   };
@@ -28,89 +29,93 @@ export default function SliderBar() {
   };
   const column = [
     {
-      label: "Profile",
+      label: 'Profile',
       icon: (
         <AccountCircleIcon
           color="success"
-          sx={{ fontSize: "2rem", color: "grey" }}
+          sx={{fontSize: '2rem', color: 'grey'}}
         />
       ),
-      onClick: () => { dispatch(ChangeComponent('Profile')) }
+      onClick: () => {
+        dispatch(ChangeComponent('Profile'));
+      },
     },
     {
-      label: "Chats",
+      label: 'Chats',
       icon: (
-        <ForumIcon color="success" sx={{ fontSize: "2rem", color: "grey" }} />
+        <ForumIcon color="success" sx={{fontSize: '2rem', color: 'grey'}} />
       ),
-      onClick: () => { dispatch(ChangeComponent('Chats')) }
+      onClick: () => {
+        dispatch(ChangeComponent('Chats'));
+      },
     },
     {
-      label: "Contacts",
+      label: 'Contacts',
       icon: (
         <PermContactCalendarIcon
           color="success"
-          sx={{ fontSize: "2rem", color: "grey" }}
+          sx={{fontSize: '2rem', color: 'grey'}}
         />
       ),
     },
     {
-      label: "Calls",
+      label: 'Calls',
       icon: (
-        <AddIcCallIcon color="success" sx={{ fontSize: "2rem", color: "grey" }} />
+        <AddIcCallIcon color="success" sx={{fontSize: '2rem', color: 'grey'}} />
       ),
     },
     {
-      label: "Bookmarks",
+      label: 'Bookmarks',
       icon: (
         <BookmarkAddIcon
           color="success"
-          sx={{ fontSize: "2rem", color: "grey" }}
+          sx={{fontSize: '2rem', color: 'grey'}}
         />
       ),
     },
     {
-      label: "Settings",
-      icon: <SettingsIcon sx={{ fontSize: "2rem", color: "grey" }} />,
+      label: 'Settings',
+      icon: <SettingsIcon sx={{fontSize: '2rem', color: 'grey'}} />,
     },
 
   ];
   const HandleLogout = async () => {
-    const apiUrl = "/delete/user-logout"
-    const response = await $crud.delete(apiUrl)
+    const apiUrl = '/delete/user-logout';
+    const response = await $crud.delete(apiUrl);
     console.log(response);
     if (response) {
-      handleOpen()
+      handleOpen();
     }
-    if (response.type == "success") {
-      handleOpen()
+    if (response.type == 'success') {
+      handleOpen();
       localStorage.clear();
       window.location.reload();
     }
-  }
+  };
   return (
     <>
       <Backdrop
-        sx={{ color: '#4eac6d', zIndex: "1000000000000000000000000" }}
+        sx={{color: '#4eac6d', zIndex: '1000000000000000000000000'}}
         open={open}
         onClick={handleClose}
       >
         <CircularProgress color="inherit" />
       </Backdrop>
       <Box
-        className={`h-screen pt-4 pb-4 bg-[#2e2e2e] flex flex-col justify-between`}
+        className={'h-screen pt-4 pb-4 bg-[#2e2e2e] flex flex-col justify-between'}
         sx={{
           display: {
-            xs: "none",
-            lg: "flex",
+            xs: 'none',
+            lg: 'flex',
           },
         }}
       >
         <ul className="flex flex-col gap-y-1">
           <li className="p-4 text-center">
-            <MessageIcon color="success" sx={{ fontSize: "2rem" }} />
+            <MessageIcon color="success" sx={{fontSize: '2rem'}} />
           </li>
 
-          {column.map(({ label, icon, onClick }, index) => {
+          {column.map(({label, icon, onClick}, index) => {
             return (
               <li className="p-4 text-center" key={index}>
                 <Tooltip title={label} placement="right" onClick={onClick}>
@@ -121,18 +126,18 @@ export default function SliderBar() {
           })}
           <li className="p-4 text-center" >
             <Tooltip title="LogOut" placement="right" onClick={HandleLogout}>
-              <IconButton><LogoutIcon sx={{ fontSize: "2rem", color: "grey" }} /></IconButton>
+              <IconButton><LogoutIcon sx={{fontSize: '2rem', color: 'grey'}} /></IconButton>
             </Tooltip>
           </li>
         </ul>
         <ul>
           <li className="p-4 text-center">
-            <Tooltip title={mode == "dark" ? "Dark Mode" : "Light Mode"} placement="right" onClick={toggleColorMode} >
+            <Tooltip title={mode == 'dark' ? 'Dark Mode' : 'Light Mode'} placement="right" onClick={toggleColorMode} >
               <IconButton>
-                {!(mode == "dark") ? <NightsStayOutlinedIcon
-                  sx={{ fontSize: "2rem", color: "grey" }}
+                {!(mode == 'dark') ? <NightsStayOutlinedIcon
+                  sx={{fontSize: '2rem', color: 'grey'}}
                 /> :
-                  <LightModeIcon sx={{ fontSize: "2rem", color: "grey" }} />
+                  <LightModeIcon sx={{fontSize: '2rem', color: 'grey'}} />
                 }
               </IconButton>
             </Tooltip>
@@ -144,28 +149,28 @@ export default function SliderBar() {
       {/* Mobile View */}
 
       <Box
-        className={`pt-4 pb-4 bg-[#2e2e2e] flex flex-row justify-between `}
+        className={'pt-4 pb-4 bg-[#2e2e2e] flex flex-row justify-between '}
         sx={{
           display: {
-            xs: "flex",
-            md: "none",
+            xs: 'flex',
+            md: 'none',
           },
-          position: "fixed",
-          width: "100%",
-          bottom: "-5px",
-          left: "0",
+          position: 'fixed',
+          width: '100%',
+          bottom: '-5px',
+          left: '0',
         }}
       >
         <ul className="flex flex-row gap-y-1">
           <li className="p-1 text-center">
             <Tooltip placement="right">
               <IconButton>
-                <MessageIcon color="success" sx={{ fontSize: "2rem" }} />
+                <MessageIcon color="success" sx={{fontSize: '2rem'}} />
               </IconButton>
             </Tooltip>
           </li>
 
-          {column.map(({ label, icon, onClick }, index) => {
+          {column.map(({label, icon, onClick}, index) => {
             return (
               <li className="p-1 text-center" key={index} >
                 <Tooltip title={label} placement="right" onClick={onClick}>
@@ -182,7 +187,7 @@ export default function SliderBar() {
               <IconButton>
                 <NightsStayOutlinedIcon
                   color="success"
-                  sx={{ fontSize: "2rem", color: "grey" }}
+                  sx={{fontSize: '2rem', color: 'grey'}}
                 />
               </IconButton>
             </Tooltip>

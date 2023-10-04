@@ -1,40 +1,40 @@
-import React from "react";
-import { Grid, Box, TextField, InputAdornment, FormControl, IconButton, FilledInput, Checkbox, FormControlLabel, FormHelperText, InputLabel, Snackbar, Alert } from "@mui/material";
-import { Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon } from "@mui/icons-material";
-import { useFormik } from "formik";
-import { Link } from "react-router-dom";
-import { auth, provider } from "../../auth/config";
-import { signInWithPopup, signOut } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { SignUpAuth } from '../../schemas/index';
-import LoadingButton from "@mui/lab/LoadingButton";
-import Style from "../style.module.css";
-import Logo from "../../assets/image/auth_logo.png";
-import Google from '../../assets/image/google.svg'
+import React from 'react';
+import {Grid, Box, TextField, InputAdornment, FormControl, IconButton, FilledInput, Checkbox, FormControlLabel, FormHelperText, InputLabel, Snackbar, Alert} from '@mui/material';
+import {Visibility as VisibilityIcon, VisibilityOff as VisibilityOffIcon} from '@mui/icons-material';
+import {useFormik} from 'formik';
+import {Link} from 'react-router-dom';
+import {auth, provider} from '../../auth/config';
+import {signInWithPopup, signOut} from 'firebase/auth';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import {SignUpAuth} from '../../schemas/index';
+import LoadingButton from '@mui/lab/LoadingButton';
+import Style from '../style.module.css';
+import Logo from '../../assets/image/auth_logo.png';
+import Google from '../../assets/image/google.svg';
 const gridRightStyle = {
   padding: {
-    xs: "0rem 0rem",
-    md: "1.5rem",
+    xs: '0rem 0rem',
+    md: '1.5rem',
   },
 };
 
 const imageStyle = {
-  width: "40%",
-  position: "absolute",
-  bottom: "0",
-  left: "4rem",
-  display: { xs: "none", lg: "block" },
+  width: '40%',
+  position: 'absolute',
+  bottom: '0',
+  left: '4rem',
+  display: {xs: 'none', lg: 'block'},
 };
 
-const errorStyle = { color: 'red', fontSize: ".8rem", letterSpacing: ".1rem", height: ".6rem" }
+const errorStyle = {color: 'red', fontSize: '.8rem', letterSpacing: '.1rem', height: '.6rem'};
 export default function SignUp() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
-  const [loading, setLoading] = React.useState(false)
-  const [snackError, setSnackError] = React.useState({ type: "", message: "" })
-  let navigation = useNavigate();
+  const [loading, setLoading] = React.useState(false);
+  const [snackError, setSnackError] = React.useState({type: '', message: ''});
+  const navigation = useNavigate();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
   const handleClickCurrentShowPassword = () => setShowCurrentPassword((show) => !show);
@@ -47,52 +47,51 @@ export default function SignUp() {
   const handleClose = () => {
     setOpen(false);
   };
-  const { handleBlur, handleSubmit, handleChange, values, errors, touched, setErrors } = useFormik({
+  const {handleBlur, handleSubmit, handleChange, errors, touched, setErrors} = useFormik({
     initialValues: {
-      email: "",
-      fullName: "",
-      password: "",
-      confirmPassword: ""
+      email: '',
+      fullName: '',
+      password: '',
+      confirmPassword: '',
     },
-    validationSchema: SignUpAuth
-    ,
+    validationSchema: SignUpAuth,
     onSubmit: async (values) => {
-      setLoading(true)
+      setLoading(true);
       const apiUrl = `${process.env.REACT_APP_BASE_URL}/create/register`;
       const registrationSuccess = await registerUser(values, apiUrl);
       if (registrationSuccess) {
-        navigation("/dashboard");
-        setLoading(false)
+        navigation('/dashboard');
+        setLoading(false);
       } else {
-        setLoading(false)
+        setLoading(false);
       }
     },
   });
   const registerUser = async (userData, apiUrl) => {
     try {
       const response = await axios.post(apiUrl, userData);
-      const { token } = response.data.data;
-      localStorage.setItem("token", token);
+      const {token} = response.data.data;
+      localStorage.setItem('token', token);
       return true; // Successful registration
     } catch (error) {
       if (error?.response?.data?.errors.length > 0) {
-        const keyName = error?.response?.data?.errors[0]?.path
-        const message = error?.response?.data?.errors[0]?.msg
-        setErrors({ [keyName]: message })
+        const keyName = error?.response?.data?.errors[0]?.path;
+        const message = error?.response?.data?.errors[0]?.msg;
+        setErrors({[keyName]: message});
       }
-      setSnackError({ type: error?.response?.data.type, message: error?.response?.data.message })
-      handleClick()
+      setSnackError({type: error?.response?.data.type, message: error?.response?.data.message});
+      handleClick();
       return false; // Registration failed
     }
   };
   const HandleGoogleAuth = async () => {
     try {
-      setChecked(true)
+      setChecked(true);
 
       await signOut(auth);
-      const { user, _tokenResponse } = await signInWithPopup(auth, provider);
-      const { uid, email } = user;
-      const { firstName, lastName, fullName, photoUrl, idToken } = _tokenResponse;
+      const {user, _tokenResponse} = await signInWithPopup(auth, provider);
+      const {uid, email} = user;
+      const {firstName, lastName, fullName, photoUrl, idToken} = _tokenResponse;
       const apiUrl = `${process.env.REACT_APP_BASE_URL}/create/google-register`;
       const registrationSuccess = await registerUser({
         uid,
@@ -104,22 +103,21 @@ export default function SignUp() {
         idToken,
       }, apiUrl);
       if (registrationSuccess) {
-        navigation("/dashboard");
-        setLoading(false)
+        navigation('/dashboard');
+        setLoading(false);
       }
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-
   };
 
 
   return (
     <main
       className={Style.main_bg_color}
-      style={{ width: "100%", height: "100vh" }}
+      style={{width: '100%', height: '100vh'}}
     >
       <Grid container>
         <Grid
@@ -129,7 +127,7 @@ export default function SignUp() {
           md={0}
           sm={0}
           xs={0}
-          sx={{ height: "100vh" }}
+          sx={{height: '100vh'}}
         ></Grid>
 
         <Grid item xl={9} lg={9} md={12} sm={12} xs={12} sx={gridRightStyle}>
@@ -143,7 +141,7 @@ export default function SignUp() {
 
             <form
               className={Style.auth_padding}
-              style={{ paddingTop: "2rem" }}
+              style={{paddingTop: '2rem'}}
               onSubmit={handleSubmit}
             >
               <Grid container spacing={2}>
@@ -160,7 +158,7 @@ export default function SignUp() {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     color="success"
-                    label={errors.email && touched.email ? "Error" : "Email"}
+                    label={errors.email && touched.email ? 'Error' : 'Email'}
                     error={errors.email && touched.email ? true : false}
 
                   />
@@ -175,7 +173,7 @@ export default function SignUp() {
                   </label>
                   <TextField
                     id="filled-basic2"
-                    label={errors.fullName && touched.fullName ? "Error" : "FullName"}
+                    label={errors.fullName && touched.fullName ? 'Error' : 'FullName'}
                     variant="filled"
                     name="fullName"
                     fullWidth
@@ -203,12 +201,12 @@ export default function SignUp() {
                       color="success"
                       error={errors.password && touched.password ? true : false}
                     >
-                      {errors.password && touched.password ? "Error" : "Password"}
+                      {errors.password && touched.password ? 'Error' : 'Password'}
                     </InputLabel>
                     <FilledInput
                       id="filled-adornment-password"
                       name="password"
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       autoComplete="current-password"
@@ -248,12 +246,12 @@ export default function SignUp() {
                       color="success"
                       error={errors.confirmPassword && touched.confirmPassword ? true : false}
                     >
-                      {errors.confirmPassword && touched.confirmPassword ? "Error" : "Confirm Password"}
+                      {errors.confirmPassword && touched.confirmPassword ? 'Error' : 'Confirm Password'}
                     </InputLabel>
                     <FilledInput
                       id="filled-adornment-password1"
                       name="confirmPassword"
-                      type={showCurrentPassword ? "text" : "password"}
+                      type={showCurrentPassword ? 'text' : 'password'}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       autoComplete="current-password"
@@ -301,11 +299,11 @@ export default function SignUp() {
                     disabled={checked}
                     className="bg-[#4eac6d] w-[80%] text-white rounded-lg py-2 text-xl "
                     sx={{
-                      backgroundColor: "#4eac6d",
-                      color: "#fff",
-                      padding: ".5rem 0",
+                      'backgroundColor': '#4eac6d',
+                      'color': '#fff',
+                      'padding': '.5rem 0',
                       '&:hover': {
-                        backgroundColor: "#4eac6d"
+                        backgroundColor: '#4eac6d',
                       },
 
                     }}
@@ -335,7 +333,7 @@ export default function SignUp() {
 
                     <Grid item xs={12} className="text-center">
                       <h2 className="py-6">
-                        Don't have an account ?
+                        Don&apos;t have an account ?
                         <Link
                           to="/signIn"
                           className="text-[#4eac6d] font-medium ml-2"
@@ -352,12 +350,12 @@ export default function SignUp() {
         </Grid>
       </Grid>
 
-      <Box sx={{ ...imageStyle }}>
+      <Box sx={{...imageStyle}}>
         <img src={Logo} alt="Image_description" />
       </Box>
 
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={snackError.type || 'info'} sx={{ width: '100%' }}>
+        <Alert onClose={handleClose} severity={snackError.type || 'info'} sx={{width: '100%'}}>
           {snackError.message}
         </Alert>
       </Snackbar>
