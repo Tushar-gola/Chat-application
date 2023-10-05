@@ -13,7 +13,7 @@ export const ThemeContextProvider = ({children}) => {
   const value = useColorTheme();
   return (
     // eslint-disable-next-line react/react-in-jsx-scope
-    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value = {value}>{children}</ThemeContext.Provider>
   );
 };
 

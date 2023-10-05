@@ -22,16 +22,16 @@ export default function ChatStarting() {
 
   };
   return (
-    <Box sx={BoxContainer}>
-      <Box sx={FirstBoxStyle}>
-        <Box sx={SecondBoxStyle}>
-          <MessageIcon color="success" sx={{fontSize: '3.5rem'}} />
+    <Box sx = {BoxContainer}>
+      <Box sx = {FirstBoxStyle}>
+        <Box sx = {SecondBoxStyle}>
+          <MessageIcon color = "success" sx = {{fontSize: '3.5rem'}} />
         </Box>
-        <h1 className='text-2xl text-[#495057] '>Welcome to Doot Chat App</h1>
-        <p className='px-[280px] text-center'>
+        <h1 className = 'text-2xl text-[#495057] '>Welcome to Doot Chat App</h1>
+        <p className = 'px-[280px] text-center'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt, minus! Odit alias quo soluta cupiditate debitis est atque corporis voluptas praesentium, earum minima velit deleniti! Accusamus magnam ducimus cumque dolor aliquid ad eius iusto ratione explicabo. Lorem ipsum dolor sit amet.
         </p>
-        <Button variant='success' sx={{backgroundColor: '#4eac6d', color: 'white'}}>
+        <Button variant = 'success' sx = {{backgroundColor: '#4eac6d', color: 'white'}}>
                     Get started
         </Button>
       </Box>

@@ -32,11 +32,11 @@ const StyledBadges = styled(Badge)(({theme}) => ({
 export default function StyleBadge({name, img, dot}) {
   return (
     <StyledBadges
-      overlap="circular"
-      anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
-      variant={dot}
+      overlap = "circular"
+      anchorOrigin = {{vertical: 'bottom', horizontal: 'right'}}
+      variant = {dot}
     >
-      <Avatar alt={name} src={img} />
+      <Avatar alt = {name} src = {img} />
     </StyledBadges>
   );
 }

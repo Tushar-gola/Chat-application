@@ -7,15 +7,15 @@ export const ThemeSwitcher = () => {
   const {mode, toggleColorMode} = useThemeContext();
   return (
     <FormControlLabel
-      sx={{
+      sx = {{
         position: 'absolute',
         right: '0px',
         top: '10px',
         zIndex: 1000,
         marginRight: 0,
       }}
-      control={<MaterialUISwitch sx={{m: 1}} checked={mode !== 'dark'} onChange={toggleColorMode}/>}
-      label=""
+      control = {<MaterialUISwitch sx = {{m: 1}} checked = {mode !== 'dark'} onChange = {toggleColorMode}/>}
+      label = ""
     />
   );
 };

@@ -5,6 +5,6 @@ export default function ProtectedRoute() {
   if (token) {
     return <Outlet />;
   } else {
-    return <Navigate to="/signIn" />;
+    return <Navigate to = "/signIn" />;
   }
 }

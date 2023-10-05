@@ -125,81 +125,81 @@ export default function SignIn() {
 
   return (
     <main
-      className={Style.main_bg_color}
-      style={{width: '100%', height: '100vh'}}
+      className = {Style.main_bg_color}
+      style = {{width: '100%', height: '100vh'}}
     >
       <Grid container>
         <Grid
           item
-          xl={3}
-          lg={3}
-          md={0}
-          sm={0}
-          xs={0}
-          sx={{height: '100vh'}}
+          xl = {3}
+          lg = {3}
+          md = {0}
+          sm = {0}
+          xs = {0}
+          sx = {{height: '100vh'}}
         ></Grid>
 
-        <Grid item xl={9} lg={9} md={12} sm={12} xs={12} sx={gridRightStyle}>
-          <Box className="bg-[#ffffff] rounded-2xl h-full flex justify-center items-center flex-col ">
-            <div className="text-center lg:mb-[2rem]">
-              <h2 className="text-3xl">Welcome Back !</h2>
-              <h4 className="text-sm mt-[8px]">Sign in to continue to Doot.</h4>
+        <Grid item xl = {9} lg = {9} md = {12} sm = {12} xs = {12} sx = {gridRightStyle}>
+          <Box className = "bg-[#ffffff] rounded-2xl h-full flex justify-center items-center flex-col ">
+            <div className = "text-center lg:mb-[2rem]">
+              <h2 className = "text-3xl">Welcome Back !</h2>
+              <h4 className = "text-sm mt-[8px]">Sign in to continue to Doot.</h4>
             </div>
 
             <form
-              className={Style.auth_padding}
-              style={{paddingTop: '2rem'}}
-              onSubmit={handleSubmit}
+              className = {Style.auth_padding}
+              style = {{paddingTop: '2rem'}}
+              onSubmit = {handleSubmit}
             >
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <label htmlFor="filled-basic" className="block mb-1">
+              <Grid container spacing = {2}>
+                <Grid item xs = {12}>
+                  <label htmlFor = "filled-basic" className = "block mb-1">
                     Email
                   </label>
                   <TextField
-                    id="filled-basic"
-                    variant="filled"
-                    name="email"
+                    id = "filled-basic"
+                    variant = "filled"
+                    name = "email"
                     fullWidth
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    color="success"
-                    label={'Email'}
-                    error={errors.email && touched.email ? true : false}
+                    onChange = {handleChange}
+                    onBlur = {handleBlur}
+                    color = "success"
+                    label = {'Email'}
+                    error = {errors.email && touched.email ? true : false}
                   />
-                  <FormHelperText style={errorStyle}>
+                  <FormHelperText style = {errorStyle}>
                     {errors.email && touched.email ? errors.email : null}
                   </FormHelperText>
                 </Grid>
 
-                <Grid item xs={12}>
+                <Grid item xs = {12}>
                   <label
-                    htmlFor="filled-adornment-password"
-                    className="block mb-1"
+                    htmlFor = "filled-adornment-password"
+                    className = "block mb-1"
                   >
                     {errors.password && touched.password ? 'Error' : 'Password'}
                   </label>
-                  <FormControl variant="filled" fullWidth>
+                  <FormControl variant = "filled" fullWidth>
                     <InputLabel
-                      htmlFor="filled-adornment-password"
-                      color="success"
-                      error={errors.password && touched.password ? true : false}
+                      htmlFor = "filled-adornment-password"
+                      color = "success"
+                      error = {errors.password && touched.password ? true : false}
                     >
                       Password
                     </InputLabel>
                     <FilledInput
-                      id="filled-adornment-password"
-                      name="password"
-                      type={showPassword ? 'text' : 'password'}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      error={errors.password && touched.password ? true : false}
-                      endAdornment={
-                        <InputAdornment position="end">
+                      id = "filled-adornment-password"
+                      name = "password"
+                      type = {showPassword ? 'text' : 'password'}
+                      onChange = {handleChange}
+                      onBlur = {handleBlur}
+                      error = {errors.password && touched.password ? true : false}
+                      endAdornment = {
+                        <InputAdornment position = "end">
                           <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            edge="end"
+                            aria-label = "toggle password visibility"
+                            onClick = {handleClickShowPassword}
+                            edge = "end"
                           >
                             {showPassword ? (
                               <VisibilityOffIcon />
@@ -211,26 +211,26 @@ export default function SignIn() {
                       }
                     />
                   </FormControl>
-                  <FormHelperText style={errorStyle}>
+                  <FormHelperText style = {errorStyle}>
                     {errors.password && touched.password ? errors.password : null}
                   </FormHelperText>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs = {12}>
                   <FormControlLabel
-                    label="Remember me"
-                    control={<Checkbox color="success" onChange={(e) => setChecked(!e.target.checked)} />}
+                    label = "Remember me"
+                    control = {<Checkbox color = "success" onChange = {(e) => setChecked(!e.target.checked)} />}
                   />
                 </Grid>
-                <Grid item xs={12} className="text-center">
+                <Grid item xs = {12} className = "text-center">
                   <LoadingButton
                     // onClick={handleClick}
-                    loading={loading}
-                    loadingIndicator="Loading…"
-                    variant="success"
-                    type="submit"
-                    disabled={checked}
-                    className="bg-[#4eac6d] w-full text-white rounded-lg py-2 text-xl "
-                    sx={{
+                    loading = {loading}
+                    loadingIndicator = "Loading…"
+                    variant = "success"
+                    type = "submit"
+                    disabled = {checked}
+                    className = "bg-[#4eac6d] w-full text-white rounded-lg py-2 text-xl "
+                    sx = {{
                       'backgroundColor': '#4eac6d',
                       'color': '#fff',
                       'padding': '.5rem 0',
@@ -240,34 +240,35 @@ export default function SignIn() {
 
                     }}
                   >
-                    <span>Sign Up</span>
+                    <spa>Sign Up</spa>
                   </LoadingButton>
                 </Grid>
-                <Grid item xs={12} className="text-center">
-                  ---------------- <span className="text-sm">Sign in with</span>
+                <Grid item xs = {12} className = "text-center">
+                  ----------------{''}
+                  <span className = "text-sm">Sign in with</span>{''}
                   ----------------
                 </Grid>
 
-                <Grid item xs={12} className="mt-3">
-                  <Grid container spacing={2}>
-                    <Grid item xs={12} className="text-center">
+                <Grid item xs = {12} className = "mt-3">
+                  <Grid container spacing = {2}>
+                    <Grid item xs = {12} className = "text-center">
                       <Box
-                        className=" bg-[#878a9222] py-2 px-4 rounded-lg cursor-pointer flex items-center w-[80%] lg:w-[50%] m-auto"
-                        onClick={HandleGoogleAuth}
+                        className = " bg-[#878a9222] py-2 px-4 rounded-lg cursor-pointer flex items-center w-[80%] lg:w-[50%] m-auto"
+                        onClick = {HandleGoogleAuth}
                       >
-                        <button type="button">
-                          <img src={Google} />
+                        <button type = "button">
+                          <img src = {Google} />
                         </button>
-                        <span className="ml-4">Sign up with Google</span>
+                        <span className = "ml-4">Sign up with Google</span>
                       </Box>
                     </Grid>
 
-                    <Grid item xs={12} className="text-center mt-6">
+                    <Grid item xs = {12} className = "text-center mt-6">
                       <h2>
                         Don&apos;t have an account ?
                         <Link
-                          to="/signUp"
-                          className="text-[#4eac6d] font-medium"
+                          to = "/signUp"
+                          className = "text-[#4eac6d] font-medium"
                         >
                           {' '}
                           Register
@@ -282,11 +283,11 @@ export default function SignIn() {
         </Grid>
       </Grid>
 
-      <Box sx={{...imageStyle}}>
-        <img src={Logo} alt="Image description" />
+      <Box sx = {{...imageStyle}}>
+        <img src = {Logo} alt = "Image description" />
       </Box>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity={snackError.type || 'info'} sx={{width: '100%'}}>
+      <Snackbar open = {open} autoHideDuration = {6000} onClose = {handleClose}>
+        <Alert onClose = {handleClose} severity = {snackError.type || 'info'} sx = {{width: '100%'}}>
           {snackError.message}
         </Alert>
       </Snackbar>

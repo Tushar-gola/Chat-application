@@ -32,8 +32,8 @@ export default function SliderBar() {
       label: 'Profile',
       icon: (
         <AccountCircleIcon
-          color="success"
-          sx={{fontSize: '2rem', color: 'grey'}}
+          color = "success"
+          sx = {{fontSize: '2rem', color: 'grey'}}
         />
       ),
       onClick: () => {
@@ -43,7 +43,7 @@ export default function SliderBar() {
     {
       label: 'Chats',
       icon: (
-        <ForumIcon color="success" sx={{fontSize: '2rem', color: 'grey'}} />
+        <ForumIcon color = "success" sx = {{fontSize: '2rem', color: 'grey'}} />
       ),
       onClick: () => {
         dispatch(ChangeComponent('Chats'));
@@ -53,29 +53,29 @@ export default function SliderBar() {
       label: 'Contacts',
       icon: (
         <PermContactCalendarIcon
-          color="success"
-          sx={{fontSize: '2rem', color: 'grey'}}
+          color = "success"
+          sx = {{fontSize: '2rem', color: 'grey'}}
         />
       ),
     },
     {
       label: 'Calls',
       icon: (
-        <AddIcCallIcon color="success" sx={{fontSize: '2rem', color: 'grey'}} />
+        <AddIcCallIcon color = "success" sx = {{fontSize: '2rem', color: 'grey'}} />
       ),
     },
     {
       label: 'Bookmarks',
       icon: (
         <BookmarkAddIcon
-          color="success"
-          sx={{fontSize: '2rem', color: 'grey'}}
+          color = "success"
+          sx = {{fontSize: '2rem', color: 'grey'}}
         />
       ),
     },
     {
       label: 'Settings',
-      icon: <SettingsIcon sx={{fontSize: '2rem', color: 'grey'}} />,
+      icon: <SettingsIcon sx = {{fontSize: '2rem', color: 'grey'}} />,
     },
 
   ];
@@ -95,49 +95,49 @@ export default function SliderBar() {
   return (
     <>
       <Backdrop
-        sx={{color: '#4eac6d', zIndex: '1000000000000000000000000'}}
-        open={open}
-        onClick={handleClose}
+        sx = {{color: '#4eac6d', zIndex: '1000000000000000000000000'}}
+        open = {open}
+        onClick = {handleClose}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color = "inherit" />
       </Backdrop>
       <Box
-        className={'h-screen pt-4 pb-4 bg-[#2e2e2e] flex flex-col justify-between'}
-        sx={{
+        className = {'h-screen pt-4 pb-4 bg-[#2e2e2e] flex flex-col justify-between'}
+        sx = {{
           display: {
             xs: 'none',
             lg: 'flex',
           },
         }}
       >
-        <ul className="flex flex-col gap-y-1">
-          <li className="p-4 text-center">
-            <MessageIcon color="success" sx={{fontSize: '2rem'}} />
+        <ul className = "flex flex-col gap-y-1">
+          <li className = "p-4 text-center">
+            <MessageIcon color = "success" sx = {{fontSize: '2rem'}} />
           </li>
 
           {column.map(({label, icon, onClick}, index) => {
             return (
-              <li className="p-4 text-center" key={index}>
-                <Tooltip title={label} placement="right" onClick={onClick}>
+              <li className = "p-4 text-center" key = {index}>
+                <Tooltip title = {label} placement = "right" onClick = {onClick}>
                   <IconButton>{icon}</IconButton>
                 </Tooltip>
               </li>
             );
           })}
-          <li className="p-4 text-center" >
-            <Tooltip title="LogOut" placement="right" onClick={HandleLogout}>
-              <IconButton><LogoutIcon sx={{fontSize: '2rem', color: 'grey'}} /></IconButton>
+          <li className = "p-4 text-center" >
+            <Tooltip title = "LogOut" placement = "right" onClick = {HandleLogout}>
+              <IconButton><LogoutIcon sx = {{fontSize: '2rem', color: 'grey'}} /></IconButton>
             </Tooltip>
           </li>
         </ul>
         <ul>
-          <li className="p-4 text-center">
-            <Tooltip title={mode == 'dark' ? 'Dark Mode' : 'Light Mode'} placement="right" onClick={toggleColorMode} >
+          <li className = "p-4 text-center">
+            <Tooltip title = {mode == 'dark' ? 'Dark Mode' : 'Light Mode'} placement = "right" onClick = {toggleColorMode} >
               <IconButton>
                 {!(mode == 'dark') ? <NightsStayOutlinedIcon
-                  sx={{fontSize: '2rem', color: 'grey'}}
+                  sx = {{fontSize: '2rem', color: 'grey'}}
                 /> :
-                  <LightModeIcon sx={{fontSize: '2rem', color: 'grey'}} />
+                  <LightModeIcon sx = {{fontSize: '2rem', color: 'grey'}} />
                 }
               </IconButton>
             </Tooltip>
@@ -149,8 +149,8 @@ export default function SliderBar() {
       {/* Mobile View */}
 
       <Box
-        className={'pt-4 pb-4 bg-[#2e2e2e] flex flex-row justify-between '}
-        sx={{
+        className = {'pt-4 pb-4 bg-[#2e2e2e] flex flex-row justify-between '}
+        sx = {{
           display: {
             xs: 'flex',
             md: 'none',
@@ -161,19 +161,19 @@ export default function SliderBar() {
           left: '0',
         }}
       >
-        <ul className="flex flex-row gap-y-1">
-          <li className="p-1 text-center">
-            <Tooltip placement="right">
+        <ul className = "flex flex-row gap-y-1">
+          <li className = "p-1 text-center">
+            <Tooltip placement = "right">
               <IconButton>
-                <MessageIcon color="success" sx={{fontSize: '2rem'}} />
+                <MessageIcon color = "success" sx = {{fontSize: '2rem'}} />
               </IconButton>
             </Tooltip>
           </li>
 
           {column.map(({label, icon, onClick}, index) => {
             return (
-              <li className="p-1 text-center" key={index} >
-                <Tooltip title={label} placement="right" onClick={onClick}>
+              <li className = "p-1 text-center" key = {index} >
+                <Tooltip title = {label} placement = "right" onClick = {onClick}>
                   <IconButton>{icon}</IconButton>
                 </Tooltip>
               </li>
@@ -182,12 +182,12 @@ export default function SliderBar() {
         </ul>
 
         <ul>
-          <li className="p-1 text-center">
-            <Tooltip title="Dark Mode" placement="right">
+          <li className = "p-1 text-center">
+            <Tooltip title = "Dark Mode" placement = "right">
               <IconButton>
                 <NightsStayOutlinedIcon
-                  color="success"
-                  sx={{fontSize: '2rem', color: 'grey'}}
+                  color = "success"
+                  sx = {{fontSize: '2rem', color: 'grey'}}
                 />
               </IconButton>
             </Tooltip>

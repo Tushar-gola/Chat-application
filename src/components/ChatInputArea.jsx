@@ -17,53 +17,54 @@ export default function ChatInputArea({handleSendMessage, setNewMessage, newMess
   };
   return (
     <>
-      <div style={{position: 'absolute', bottom: '92px'}}>
-        {selectedEmoji && <EmojiPicker onEmojiClick={AddEmoji} lazyLoadEmojis={true} theme={mode === 'dark' ? 'dark' : 'light'} />}
+      <div style = {{position: 'absolute', bottom: '92px'}}>
+        {selectedEmoji && <EmojiPicker onEmojiClick = {AddEmoji} lazyLoadEmojis = {true} theme = {mode === 'dark' ? 'dark' : 'light'} />}
       </div>
 
       <Grid
         container
-        sx={{
+        sx = {{
           height: '100%',
           alignItems: 'center',
           padding: {xs: '0 1rem', lg: '0rem 1.5rem'},
           display: {xs: 'none', lg: 'flex'},
         }}
       >
-        <Grid item xs={1} className="flex gap-3 justify-center items-center ">
+        <Grid item xs = {1} className = "flex gap-3 justify-center items-center ">
           <Box>
-            <MoreHorizIcon sx={{color: '#495057', fontSize: '1.8rem'}} />
+            <MoreHorizIcon sx = {{color: '#495057', fontSize: '1.8rem'}} />
           </Box>
-          <Box sx={{position: 'relative'}}>
-            <InsertEmoticonIcon sx={{color: '#495057', fontSize: '1.8rem'}} onClick={() => setSelectedEmoji(!selectedEmoji)} />
+          <Box sx = {{position: 'relative'}}>
+            <InsertEmoticonIcon sx = {{color: '#495057', fontSize: '1.8rem'}} onClick = {() => setSelectedEmoji(!selectedEmoji)} />
           </Box>
         </Grid>
         <Grid
           item
-          xs={10}
-          className="flex justify-center items-end lg:items-center"
+          xs = {10}
+          className = "flex justify-center items-end lg:items-center"
         >
           <input
-            type="text"
-            placeholder="Type your message..."
-            className={`form-input py-3 px-3 text-md w-[90%] lg:w-[100%] outline-none rounded-md ${mode === 'dark' ? 'bg-[#383838]  text-[#adb5bd]' : null} `}
+            type = "text"
+            placeholder = "Type your message..."
+            className = {`form-input py-3 px-3 text-md w-[90%] lg:w-[100%] outline-none rounded-md ${mode === 'dark' ? 'bg-[#383838]  text-[#adb5bd]' : null} `}
             autoFocus
-            value={newMessage}
-            ref={inputRef}
-            onKeyDown={(e) => e.key === 'Enter' ? handleSendMessage() : null}
-            onChange={(e) => {
+            value = {newMessage}
+            ref = {inputRef}
+            onKeyDown = {(e) => e.key === 'Enter' ? handleSendMessage() : null}
+            onChange = {(e) => {
               setNewMessage(e.target.value);
             }}
           />
         </Grid>
-        <Grid item xs={1} className="flex gap-2 justify-center items-center ">
-          <Box sx={{display: {xs: 'none', lg: 'block'}}}>
-            <MicIcon sx={{color: '#495057', fontSize: '1.8rem'}} />
+        <Grid item xs = {1} className = "flex gap-2 justify-center items-center ">
+          <Box sx = {{display: {xs: 'none', lg: 'block'}}}>
+            <MicIcon sx = {{color: '#495057', fontSize: '1.8rem'}} />
           </Box>
-          <Box onClick={() => {
+          <Box onClick = {() => {
             handleSendMessage(); handleScroll(); inputRef.current.focus();
-          }} >
-            <SendIcon sx={{color: '#495057', fontSize: '1.8rem'}} />
+          }}
+          >
+            <SendIcon sx = {{color: '#495057', fontSize: '1.8rem'}} />
           </Box>
         </Grid>
       </Grid>
@@ -72,7 +73,7 @@ export default function ChatInputArea({handleSendMessage, setNewMessage, newMess
 
       <Grid
         container
-        sx={{
+        sx = {{
           // background: "#f2f2f2",
           height: '100%',
           alignItems: 'center',
@@ -80,23 +81,23 @@ export default function ChatInputArea({handleSendMessage, setNewMessage, newMess
           display: {xs: 'flex', lg: 'none'},
         }}
       >
-        <Grid item xs={10}>
+        <Grid item xs = {10}>
           <input
-            type="text"
-            placeholder="Type your message..."
+            type = "text"
+            placeholder = "Type your message..."
             autoFocus
-            value={newMessage}
-            ref={inputRef}
-            onKeyDown={(e) => e.key === 'Enter' ? handleSendMessage() : null}
-            onChange={(e) => {
+            value = {newMessage}
+            ref = {inputRef}
+            onKeyDown = {(e) => e.key === 'Enter' ? handleSendMessage() : null}
+            onChange = {(e) => {
               setNewMessage(e.target.value); setInputValue(e.target.value.length);
             }}
-            className="form-input py-3 px-3 text-md w-[100%] lg:w-[100%] outline-none rounded-md bg-[#ffffff]  "
+            className = "form-input py-3 px-3 text-md w-[100%] lg:w-[100%] outline-none rounded-md bg-[#ffffff]  "
           />
         </Grid>
-        <Grid item xs={2}>
+        <Grid item xs = {2}>
           <Button
-            sx={{
+            sx = {{
               minWidth: '50px',
               marginLeft: '1rem',
               width: '50px',
@@ -110,13 +111,13 @@ export default function ChatInputArea({handleSendMessage, setNewMessage, newMess
 
           >
             {inputValue > 0 ? (
-                            <SendIcon sx={{color: '#FFF', fontSize: '1.8rem'}}
-                              onClick={() => {
+                            <SendIcon sx = {{color: '#FFF', fontSize: '1.8rem'}}
+                              onClick = {() => {
                                 handleSendMessage(); setInputValue(0); inputRef.current.focus();
                               }}
                             />
                         ) : (
-                            <MicIcon sx={{color: '#495057', fontSize: '1.8rem'}} />
+                            <MicIcon sx = {{color: '#495057', fontSize: '1.8rem'}} />
                         )}
           </Button>
         </Grid>

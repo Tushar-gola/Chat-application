@@ -8,7 +8,7 @@ function App() {
   const {theme} = useThemeContext();
   return (
     <>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme = {theme}>
         <CssBaseline />
         <Routers />
       </ThemeProvider>

@@ -186,37 +186,38 @@ export default function ChatSlider() {
   };
   return (
     <>
-      <Box sx={{...BoxContainer, background: `${mode === 'dark' ? '#000' : null}`}}>
+      <Box sx = {{...BoxContainer, background: `${mode === 'dark' ? '#000' : null}`}}>
         <Grid container >
           <Grid
             item
-            xs={12}
-            sx={{...ChatTopBottomAreaGrid, position: 'sticky', top: 0, backgroundImage: `url(${BgPng})`}}
+            xs = {12}
+            sx = {{...ChatTopBottomAreaGrid, position: 'sticky', top: 0, backgroundImage: `url(${BgPng})`}}
           >
             <ChatTopArea />
           </Grid>
 
-          <Grid item xs={12} sx={{...ChatAreaGrid, backgroundImage: `url(${BgPng})`}} ref={chatBoxRef} >
-            <Grid container ref={chatBoxRef}>
+          <Grid item xs = {12} sx = {{...ChatAreaGrid, backgroundImage: `url(${BgPng})`}} ref = {chatBoxRef} >
+            <Grid container ref = {chatBoxRef}>
               {messages.map((message, index) => (
-                <Grid item key={index} xs={12} sx={{
+                <Grid item key = {index} xs = {12} sx = {{
                   display: message.sender === 'You' ? 'flex' : 'block',
                   flexDirection: 'column',
-                }}>
+                }}
+                >
                   <div
-                    className={`message ${message.sender === 'You' ? 'sender' : 'receiver'} relative ${mode === 'dark' ? 'bg-[#383838] text-[#dae3eb]' : 'bg-[#FFFFFF] text-[#000]'}`}
+                    className = {`message ${message.sender === 'You' ? 'sender' : 'receiver'} relative ${mode === 'dark' ? 'bg-[#383838] text-[#dae3eb]' : 'bg-[#FFFFFF] text-[#000]'}`}
                   >
                     {message.text}
-                    <div className=" right-0 bottom-0 text-[10px] ">{message.timestamp}</div>
+                    <div className = " right-0 bottom-0 text-[10px] ">{message.timestamp}</div>
                   </div>
-                  <div className={` ${message.sender === 'You' ? 'sender-time' : 'receiver-time'} message-timestamp text-[11px]`}>{'Tushar Gola'}</div>
+                  <div className = {` ${message.sender === 'You' ? 'sender-time' : 'receiver-time'} message-timestamp text-[11px]`}>{'Tushar Gola'}</div>
                 </Grid>
               ))}
             </Grid>
           </Grid>
 
-          <Grid item xs={12} sx={ChatTopBottomAreaGrid}>
-            <ChatInputArea handleSendMessage={handleSendMessage} setNewMessage={setNewMessage} newMessage={newMessage} handleScroll={handleScroll} />
+          <Grid item xs = {12} sx = {ChatTopBottomAreaGrid}>
+            <ChatInputArea handleSendMessage = {handleSendMessage} setNewMessage = {setNewMessage} newMessage = {newMessage} handleScroll = {handleScroll} />
           </Grid>
         </Grid>
       </Box>

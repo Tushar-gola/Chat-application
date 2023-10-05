@@ -5,6 +5,6 @@ export default function PublicRoute() {
   if (!token) {
     return <Outlet />;
   } else {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to = "/dashboard" />;
   }
 }

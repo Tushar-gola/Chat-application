@@ -20,7 +20,12 @@
         "react"
     ],
     "rules": {
-       "max-len": ["error", { "code": 300 }],
+        "max-len": [
+            "error",
+            {
+                "code": 300
+            }
+        ],
         "require-jsdoc": "off",
         "quotes": [
             "error",

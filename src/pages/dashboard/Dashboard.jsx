@@ -14,34 +14,35 @@ export default function Dashboard() {
   return (
     <>
       <Grid container>
-        <Grid item xs={12} md={3} lg={3}>
+        <Grid item xs = {12} md = {3} lg = {3}>
           <Grid container>
             <Grid
               item
-              xs={2}
-              sx={{
+              xs = {2}
+              sx = {{
                 display: {
                   xs: 'none',
                   lg: 'block',
                 },
-              }}>
+              }}
+            >
               <SliderBar />
             </Grid>
 
-            <Grid item xs={12} lg={10}>
+            <Grid item xs = {12} lg = {10}>
               {ToggleComponent === 'Profile' ? <FindUser /> : ToggleComponent === 'Chats' ? <ChatBox /> : null}
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid item xs={0} md={9} lg={9} height={'100dvh'} position={'relative'}>
+        <Grid item xs = {0} md = {9} lg = {9} height = {'100dvh'} position = {'relative'}>
           {ToggleComponent === 'Chats' ? <ChatSlider /> : id !== 0 || !(ToggleComponent === 'Chats') ? <ChatStarting /> : null}
         </Grid>
 
         <Grid
           item
-          xs={12}
-          sx={{
+          xs = {12}
+          sx = {{
             display: {
               xs: 'block',
               lg: 'none',

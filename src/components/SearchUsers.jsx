@@ -3,16 +3,20 @@ import {Button, Dialog, Slide, Box, Grid} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SearchIcon from '@mui/icons-material/Search';
-import UserFront from '../assets/image/UserProfile/avatar-1.9c8e605558cece65b06c.jpg';
 import {useThemeContext} from '../theme/ThemeContextProvider';
 import {$crud} from '../CRUD/Crud';
+import {useDispatch} from 'react-redux';
+import {getData} from './../redux/slices/UserDetails';
+import {ChangeComponent} from '../redux/slices/ToggleComponents';
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction = "up" ref = {ref} {...props} />;
 });
 // eslint-disable-next-line react/prop-types
 export default function SearchUsers({opened, onClose}) {
   const [open, setOpen] = React.useState(false);
+  const [userData, setUserData] = React.useState();
   const {mode} = useThemeContext();
+  const dispatch = useDispatch();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -25,11 +29,14 @@ export default function SearchUsers({opened, onClose}) {
     setOpen(opened);
   }, [opened]);
 
-  const getData = async (value) => {
-    console.log(value, 'value');
-    const apiUrl = '/retrieve/debounce-use';
-    const res = await $crud.retrieve(apiUrl, value[0]);
-    console.log(res, 'res');
+  const data = async (value) => {
+    try {
+      const apiUrl = '/retrieve/debounce-user';
+      const res = await $crud.retrieve(apiUrl, {value: value[0]});
+      res?.data?.length > 0 ? setUserData(res?.data):setUserData([]);
+    } catch (error) {
+      console.error(error.message, 'error');
+    }
   };
 
   const debounce = (func, time) => {
@@ -41,159 +48,65 @@ export default function SearchUsers({opened, onClose}) {
       }, time);
     };
   };
-  const debounceGetData = debounce(getData, 2000);
+  const debounceGetData = debounce(data, 500);
   return (
     <>
-      <Button variant="outlined" className='bg-[#4eac6d7b]' color="success"
-        onClick={handleClickOpen}>
+      <Button variant = "outlined" className = 'bg-[#4eac6d7b]' color = "success"
+        onClick = {handleClickOpen}
+      >
         <AddIcon />
       </Button>
       <Dialog
-        open={open}
-        TransitionComponent={Transition}
+        open = {open}
+        TransitionComponent = {Transition}
         keepMounted
-        aria-describedby="alert-dialog-slide-description"
+        aria-describedby = "alert-dialog-slide-description"
       >
-        <Box sx={{width: '500px', height: '800px'}}>
+        <Box sx = {{width: '500px', height: '800px'}}>
           <Grid container>
-            <Grid item xs={12} sx={{position: 'sticky', top: 0, background: `${mode == 'dark' ? '#262626' : '#FFFFF'}`, paddingBottom: '1rem'}}>
+            <Grid item xs = {12} sx = {{position: 'sticky', top: 0, background: `${mode == 'dark' ? '#262626' : '#FFFFF'}`, paddingBottom: '1rem'}}>
               <Grid container>
-                <Grid item xs={12}>
-                  <Button variant='outlined' color='success' sx={{
+                <Grid item xs = {12}>
+                  <Button variant = 'outlined' color = 'success' sx = {{
                     'border': 'none', '&:hover': {
                       border: 'none',
                     }, 'padding': '1rem',
-                  }} onClick={handleClose}>
-                    <ArrowBackIosIcon sx={{color: 'black'}} />
+                  }} onClick = {handleClose}
+                  >
+                    <ArrowBackIosIcon sx = {{color: 'black'}} />
                   </Button>
                 </Grid>
-                <Grid item xs={12} sx={{padding: ' 0 1rem'}}>
-                  <div className='relative'>
+                <Grid item xs = {12} sx = {{padding: ' 0 1rem'}}>
+                  <div className = 'relative'>
                     <input
-                      type="text"
-                      placeholder="Search here..."
-                      onChange={(e) => debounceGetData(e.target.value)}
-                      className={`form-input py-3 px-10 text-md w-full outline-none rounded-md ${mode == 'dark' ? 'bg-[#383838]  text-[#adb5bd]' : null} `}
+                      type = "text"
+                      placeholder = "Search here..."
+                      onChange = {(e) => debounceGetData(e.target.value)}
+                      className = {`form-input py-3 px-10 text-md w-full outline-none rounded-md ${mode == 'dark' ? 'bg-[#383838]  text-[#adb5bd]' : null} `}
                     />
-                    <SearchIcon sx={{position: 'absolute', top: '25%', left: '1%', color: 'grey'}} />
+                    <SearchIcon sx = {{position: 'absolute', top: '25%', left: '1%', color: 'grey'}} />
                   </div>
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item xs={12} sx={{padding: ' 2rem 0rem', overflowY: 'auto'}}>
+            <Grid item xs = {12} sx = {{padding: ' 2rem 0rem', overflowY: 'auto'}}>
               <ul>
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
-                <li className='flex bg-[#00000004] px-[16px] py-2 my-2'>
-                  <img src={UserFront} alt="User" className='w-[50px] rounded-full' />
-                  <div className='ml-3'>
-                    <h1 className='text-lg'>Tushar Gola</h1>
-                    <p className='text-[12px]'>Full stack developer</p>
-                  </div>
-                </li>
+                {
+               userData?.length > 0 ? userData?.map((item) => {
+                 return (
+                   <li className='flex bg-[#00000004] px-[16px] py-2 my-2 cursor-pointer' key={item?._id} onClick={() => {
+                     // eslint-disable-next-line new-cap
+                     dispatch(getData({payload: item})); handleClose(); dispatch(ChangeComponent('Profile'));
+                   }}>
+                     <img src = {item?.photoUrl} alt = {item?.fullName} className = 'w-[50px] rounded-full' />
+                     <div className = 'ml-3'>
+                       <h1 className='text-lg'>{item?.fullName}</h1>
+                       <p className = 'text-[12px]'>Full stack developer</p>
+                     </div>
+                   </li>
+                 );
+               }):<div className='px-[20px]'>User not found.....</div>
+                }
               </ul>
             </Grid>
           </Grid>

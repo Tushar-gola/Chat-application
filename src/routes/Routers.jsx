@@ -10,13 +10,13 @@ export default function Routers() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<PublicRoute />}>
-          <Route path="/" element={<Navigate replace to="/signIn" />} />
-          <Route path="/signIn" element={<SignIn />} />
-          <Route path="/signUp" element={<SignUp />} />
+        <Route path = "/" element = {<PublicRoute />}>
+          <Route path = "/" element = {<Navigate replace to = "/signIn" />} />
+          <Route path = "/signIn" element = {<SignIn />} />
+          <Route path = "/signUp" element = {<SignUp />} />
         </Route>
-        <Route path="/" element={<ProtectedRoute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+        <Route path = "/" element = {<ProtectedRoute />}>
+          <Route path = "/dashboard" element = {<Dashboard />} />
         </Route>
       </Routes>
     </>

@@ -1,5 +1,6 @@
 import {ChatArea} from './slices/OpenChatBox';
 import {ToggleComponent} from './slices/ToggleComponents';
+import {UserDetails} from './slices/UserDetails';
 import {configureStore} from '@reduxjs/toolkit';
 import {combineReducers} from 'redux';
 import {persistStore, persistReducer} from 'redux-persist';
@@ -7,6 +8,7 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 const rootReducer = combineReducers({
   open: ChatArea.reducer,
   toggle: ToggleComponent.reducer,
+  userData: UserDetails.reducer,
 });
 const persistConfig = {
   key: 'root',
