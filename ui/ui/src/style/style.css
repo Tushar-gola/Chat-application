@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Sen:wght@700&display=swap");
+
+@tailwind base;
+@tailwind components;
+
+.auth-onboarding-container-pattern {
+  background-color: #fafafa;
+  opacity: 0.8;
+  background: linear-gradient(135deg, #f5f5f555 25%, transparent 25%) -10px 0/ 20px 20px,
+    linear-gradient(225deg, #f5f5f5 25%, transparent 25%) -10px 0/ 20px 20px,
+    linear-gradient(315deg, #f5f5f555 25%, transparent 25%) 0px 0/ 20px 20px,
+    linear-gradient(45deg, #f5f5f5 25%, #fafafa 25%) 0px 0/ 20px 20px;
+}
+
+.text-style-label {
+  @apply font-lato font-bold text-xl leading-[24px] -tracking-[0.01em];
+}
+
+.text-style-label-sm {
+  @apply font-lato font-bold text-base leading-[20px] -tracking-[0.01em];
+}
+
+.text-style-description {
+  @apply font-lato font-normal text-2xl leading-[28px] -tracking-[0.025em];
+}
+
+.text-style-modal-header {
+  @apply font-lato font-normal text-2xl leading-[30px] -tracking-[0.01em];
+}
+
+.text-style-body {
+  @apply font-lato font-normal text-base leading-[20px] -tracking-[0.01em];
+}
+
+.text-style-body-sm {
+  @apply font-lato font-normal text-[15px] leading-[18px] -tracking-[0.01em];
+}
+
+.text-style-body-xs {
+  @apply font-lato font-normal text-[14px] leading-[18px] -tracking-[0.01em];
+}
+
+.text-style-button {
+  @apply font-lato font-normal text-xl leading-[24px] -tracking-[0.01em];
+}
+
+.text-style-button-sm {
+  @apply font-lato font-normal text-base leading-[20px] -tracking-[0.01em];
+}
+
+.text-style-info {
+  @apply font-lato font-normal text-sm leading-[16px] -tracking-[0.01em];
+}
+
+.bg-overlay {
+  background: rgba(33, 33, 33, 0.6);
+}
+
+.cropAreaClassName {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 16px;
+}
+
+.success-icon-bg {
+  width: 128px;
+  height: 128px;
+  background: #8bc34a;
+  box-shadow: 0px 0px 0px 16px #dcedc8, 0px 0px 0px 32px #f1f8e9;
+  border-radius: 99px;
+}
+
+@tailwind utilities;
