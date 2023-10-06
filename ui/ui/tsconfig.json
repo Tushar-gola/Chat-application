@@ -1,5 +1,0 @@
-{
-  "extends": "tsconfig/react-library.json",
-  "include": ["src", "../../apps/web/src/features/common/modals/column-customize-modal/table-column-visiblity-modal.tsx"],
-  "exclude": ["dist", "build", "node_modules"]
-}
