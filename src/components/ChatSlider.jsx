@@ -177,7 +177,7 @@ export function ChatSlider() {
     const newMessageObj = {
       text: newMessage,
       timestamp: currentTime,
-      sender: 'Receiver', // Change this to the sender"s name or identifier
+      sender: 'You', // Change this to the sender"s name or identifier
       receiver: 'Receiver', // Change this to the receiver"s name or identifier
     };
     setMessages([...messages, newMessageObj]);

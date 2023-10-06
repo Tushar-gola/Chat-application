@@ -49,7 +49,7 @@ export function ChatBox() {
               />
             </Grid>
             <Grid item xs = {12} className = "px-4">
-              <span className = {` text-md    ${mode === 'dark' ? 'text-[#d4d8db]' : `${Style.light_grey_opacity_75}`}`}>
+              <span className = {`text-md ${mode === 'dark' ? 'text-[#d4d8db]' : `${Style.light_grey_opacity_75}`}`}>
                 FAVOURITES
               </span>
             </Grid>
