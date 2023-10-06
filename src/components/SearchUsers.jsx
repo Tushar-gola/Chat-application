@@ -4,31 +4,28 @@ import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SearchIcon from '@mui/icons-material/Search';
 import {useThemeContext} from '../theme/ThemeContextProvider';
-import {$crud} from '../CRUD/Crud';
+import {$crud} from '../CRUD';
 import {useDispatch} from 'react-redux';
-import {getData} from './../redux/slices/UserDetails';
-import {ChangeComponent} from '../redux/slices/ToggleComponents';
+import {getData} from '../redux';
+import {ChangeComponent} from '../redux';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction = "up" ref = {ref} {...props} />;
 });
 // eslint-disable-next-line react/prop-types
-export default function SearchUsers({opened, onClose}) {
+export function SearchUsers({opened, onClose}) {
   const [open, setOpen] = React.useState(false);
   const [userData, setUserData] = React.useState();
   const {mode} = useThemeContext();
   const dispatch = useDispatch();
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
   useEffect(() => {
     setOpen(opened);
   }, [opened]);
-
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const data = async (value) => {
     try {
       const apiUrl = '/retrieve/debounce-user';

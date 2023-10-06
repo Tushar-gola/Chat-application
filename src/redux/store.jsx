@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['open', 'ToggleComponent'],
+  blacklist: ['open', 'ToggleComponent', 'userData'],
 };
 const persistReducers = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({

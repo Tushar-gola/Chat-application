@@ -24,7 +24,7 @@ import {useFormik} from 'formik';
 import {Link} from 'react-router-dom';
 import {auth, provider} from '../../auth/config';
 import {signInWithPopup} from 'firebase/auth';
-import {$crud} from '../../CRUD/Crud';
+import {$crud} from '../../CRUD';
 import LoadingButton from '@mui/lab/LoadingButton';
 import {useNavigate} from 'react-router-dom';
 import {SignInAuth} from '../../schemas/index';
@@ -43,7 +43,7 @@ const imageStyle = {
   display: {xs: 'none', lg: 'block'},
 };
 const errorStyle = {color: 'red', fontSize: '.8rem', letterSpacing: '.1rem', height: '.6rem'};
-export default function SignIn() {
+export function SignIn() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [checked, setChecked] = React.useState(true);
   const [loading, setLoading] = React.useState(false);

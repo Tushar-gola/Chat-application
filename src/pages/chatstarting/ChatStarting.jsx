@@ -9,7 +9,7 @@ const FirstBoxStyle = {
 
 const SecondBoxStyle = {width: '100px', height: '100px', background: '#4eac6d30', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '50%', marginBottom: '1rem'};
 
-export default function ChatStarting() {
+export function ChatStarting() {
   const open = useSelector((state) => state.open.open);
   const BoxContainer = {
     width: '100%',

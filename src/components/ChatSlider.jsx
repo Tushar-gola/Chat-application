@@ -1,8 +1,7 @@
 import {Box, Grid} from '@mui/material';
 import React, {useState, useEffect, useRef} from 'react';
 import {useSelector} from 'react-redux';
-import ChatTopArea from './ChatTopArea';
-import ChatInputArea from './ChatInputArea';
+import {ChatTopArea, ChatInputArea} from './';
 import BgPng from '../assets/image/pattern-05.ffd181cdf9a08b200998.png';
 import {useThemeContext} from '../theme/ThemeContextProvider';
 const ChatTopBottomAreaGrid = {
@@ -17,7 +16,7 @@ const ChatAreaGrid = {
   padding: '1rem',
 };
 
-export default function ChatSlider() {
+export function ChatSlider() {
   const open = useSelector((state) => state.open.open);
   const {mode} = useThemeContext();
   const chatBoxRef = useRef(null);

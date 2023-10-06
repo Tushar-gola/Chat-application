@@ -7,8 +7,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Demo from '../assets/image/demo.jpg';
 import {useThemeContext} from '../theme/ThemeContextProvider';
-import StyleBadge from '../components/muiReuse/StyleBadge';
-export default function ChatTopArea() {
+import {StyleBadge} from './';
+export function ChatTopArea() {
   const {mode} = useThemeContext();
   return (
     <Grid container sx = {{

@@ -1,16 +1,11 @@
 import React from 'react';
 import {Grid} from '@mui/material';
-import SliderBar from '../../components/SliderBar';
-import ChatBox from '../../components/ChatBox';
-import ChatSlider from '../../components/ChatSlider';
 import {useSelector} from 'react-redux';
-import FindUser from '../../components/FindUser';
-import ChatStarting from '../chatstarting/ChatStarting';
-
-export default function Dashboard() {
+import {FindUser, SliderBar, ChatBox, ChatSlider} from '../../components';
+import {ChatStarting} from '../';
+export function Dashboard() {
   const ToggleComponent = useSelector((state) => state.toggle.name);
   const id = useSelector((state) => state.open.id);
-
   return (
     <>
       <Grid container>
@@ -47,8 +42,7 @@ export default function Dashboard() {
               xs: 'block',
               lg: 'none',
             },
-          }}
-        >
+          }}>
           <SliderBar />
         </Grid>
       </Grid>

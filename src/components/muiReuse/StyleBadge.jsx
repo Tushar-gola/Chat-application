@@ -29,7 +29,7 @@ const StyledBadges = styled(Badge)(({theme}) => ({
   },
 }));
 // eslint-disable-next-line react/prop-types
-export default function StyleBadge({name, img, dot}) {
+export function StyleBadge({name, img, dot}) {
   return (
     <StyledBadges
       overlap = "circular"

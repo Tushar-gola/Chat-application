@@ -3,10 +3,8 @@ import {Route, Routes} from 'react-router-dom';
 import ProtectedRoute from '../helpers/ProtectedRoute';
 import PublicRoute from '../helpers/PublicRoute';
 import {Navigate} from 'react-router-dom';
-import SignIn from '../pages/signIn/SignIn';
-import SignUp from '../pages/signUp/SignUp';
-import Dashboard from '../pages/dashboard/Dashboard';
-export default function Routers() {
+import {SignIn, SignUp, Dashboard} from '../pages';
+export function Routers() {
   return (
     <>
       <Routes>

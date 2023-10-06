@@ -7,7 +7,7 @@ import SendIcon from '@mui/icons-material/Send';
 import EmojiPicker from 'emoji-picker-react';
 import {useThemeContext} from '../theme/ThemeContextProvider';
 // eslint-disable-next-line react/prop-types
-export default function ChatInputArea({handleSendMessage, setNewMessage, newMessage, handleScroll}) {
+export function ChatInputArea({handleSendMessage, setNewMessage, newMessage, handleScroll}) {
   const [inputValue, setInputValue] = React.useState(0);
   const [selectedEmoji, setSelectedEmoji] = React.useState(false);
   const inputRef = React.useRef(null);

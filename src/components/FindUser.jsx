@@ -5,9 +5,8 @@ import UserFront from '../assets/image/UserProfile/avatar-1.9c8e605558cece65b06c
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import {useSelector} from 'react-redux';
-export default function FindUser() {
+export function FindUser() {
   const user = useSelector((state) => state?.userData.data.payload);
-  console.log(user, 'data');
   return (
     <>
       <Box>

@@ -10,14 +10,13 @@ import MessageIcon from '@mui/icons-material/Message';
 import NightsStayOutlinedIcon from '@mui/icons-material/NightsStayOutlined';
 import ForumIcon from '@mui/icons-material/Forum';
 import {useDispatch} from 'react-redux';
-import {ChangeComponent} from '../redux/slices/ToggleComponents';
+import {ChangeComponent} from '../redux/';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {$crud} from '../CRUD/Crud';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+import {$crud} from '../CRUD';
+import {Backdrop, CircularProgress} from '@mui/material';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import {useThemeContext} from '../theme/ThemeContextProvider';
-export default function SliderBar() {
+export function SliderBar() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const {mode, toggleColorMode} = useThemeContext();

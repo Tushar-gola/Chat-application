@@ -28,7 +28,7 @@ const imageStyle = {
 };
 
 const errorStyle = {color: 'red', fontSize: '.8rem', letterSpacing: '.1rem', height: '.6rem'};
-export default function SignUp() {
+export function SignUp() {
   const [showPassword, setShowPassword] = React.useState(false);
   const [showCurrentPassword, setShowCurrentPassword] = React.useState(false);
   const [checked, setChecked] = React.useState(true);

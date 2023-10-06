@@ -1,14 +1,14 @@
 import React from 'react';
-import {Grid} from '@mui/material';
-import Style from '../pages/style.module.css';
-import {useDispatch} from 'react-redux';
-import {open} from '../redux/slices/OpenChatBox';
-import Demo from '../assets/image/demo.jpg';
-import SearchUsers from './SearchUsers';
 import {useThemeContext} from '../theme/ThemeContextProvider';
-import StyleBadge from '../components/muiReuse/StyleBadge';
+import Style from '../pages/style.module.css';
+import Demo from '../assets/image/demo.jpg';
+import {useDispatch} from 'react-redux';
+import {Grid} from '@mui/material';
+import {open} from '../redux';
+import {SearchUsers} from './';
+import {StyleBadge} from './';
 
-export default function ChatBox() {
+export function ChatBox() {
   const dispatch = useDispatch();
   const [activeItem, setActiveItem] = React.useState(null);
   const [searchModal, setSearchModal] = React.useState(false);
@@ -16,7 +16,10 @@ export default function ChatBox() {
   const users = [
     {id: 1, name: 'Ravi'},
     {id: 2, name: 'Ramu'},
-    {id: 3, name: 'Tushar Gola'}];
+    {id: 3, name: 'Tushar Gola'},
+    {id: 4, name: 'Tushar Gola'},
+
+  ];
   const [currentUser, setCurrentUser] = React.useState(users);
   const handleItemClick = (userId) => {
     setActiveItem(userId);
