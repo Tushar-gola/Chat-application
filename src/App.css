@@ -45,11 +45,8 @@
 
 .receiver {
     text-align: left;
-    /* background-color: #FFFFFF; */
-    /* color: black; */
     box-shadow: rgba(15, 34, 58, 0.12) 0px 2px 4px 0px;
 }
-
 
 .sender-time {
     text-align: right;
@@ -58,4 +55,14 @@
 
 .receiver-time {
     text-align: left;
+}
+
+.top-area li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.highlighted {
+  background-color: #ac5c4ebe !important;
 }

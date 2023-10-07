@@ -57,6 +57,7 @@ export function SignUp() {
     validationSchema: SignUpAuth,
     onSubmit: async (values) => {
       setLoading(true);
+      // eslint-disable-next-line no-undef
       const apiUrl = `${process.env.REACT_APP_BASE_URL}/create/register`;
       const registrationSuccess = await registerUser(values, apiUrl);
       if (registrationSuccess) {
@@ -92,6 +93,7 @@ export function SignUp() {
       const {user, _tokenResponse} = await signInWithPopup(auth, provider);
       const {uid, email} = user;
       const {firstName, lastName, fullName, photoUrl, idToken} = _tokenResponse;
+      // eslint-disable-next-line no-undef
       const apiUrl = `${process.env.REACT_APP_BASE_URL}/create/google-register`;
       const registrationSuccess = await registerUser({
         uid,

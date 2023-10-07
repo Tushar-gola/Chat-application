@@ -2,15 +2,17 @@ import React, {useEffect} from 'react';
 import {Button, Dialog, Slide, Box, Grid} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import {useThemeContext} from '../theme/ThemeContextProvider';
 import {$crud} from '../CRUD';
 import {useDispatch} from 'react-redux';
 import {getData} from '../redux';
 import {ChangeComponent} from '../redux';
+import {CustomInput} from './';
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction = "up" ref = {ref} {...props} />;
 });
+// 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
 // eslint-disable-next-line react/prop-types
 export function SearchUsers({opened, onClose}) {
   const [open, setOpen] = React.useState(false);
@@ -75,13 +77,10 @@ export function SearchUsers({opened, onClose}) {
                 </Grid>
                 <Grid item xs = {12} sx = {{padding: ' 0 1rem'}}>
                   <div className = 'relative'>
-                    <input
-                      type = "text"
-                      placeholder = "Search here..."
-                      onChange = {(e) => debounceGetData(e.target.value)}
-                      className = {`form-input py-3 px-10 text-md w-full outline-none rounded-md ${mode == 'dark' ? 'bg-[#383838]  text-[#adb5bd]' : null} `}
-                    />
-                    <SearchIcon sx = {{position: 'absolute', top: '25%', left: '1%', color: 'grey'}} />
+                    <CustomInput type="text"
+                      placeholder="Search here..."
+                      onChange={(e) => debounceGetData(e.target.value)} mode={mode} />
+                    {/* <SearchIcon sx = {{position: 'absolute', top: '25%', left: '1%', color: 'grey'}} /> */}
                   </div>
                 </Grid>
               </Grid>

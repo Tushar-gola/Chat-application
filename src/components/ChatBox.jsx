@@ -5,9 +5,7 @@ import Demo from '../assets/image/demo.jpg';
 import {useDispatch} from 'react-redux';
 import {Grid} from '@mui/material';
 import {open} from '../redux';
-import {SearchUsers} from './';
-import {StyleBadge} from './';
-
+import {StyleBadge, CustomInput, SearchUsers} from './';
 export function ChatBox() {
   const dispatch = useDispatch();
   const [activeItem, setActiveItem] = React.useState(null);
@@ -41,12 +39,7 @@ export function ChatBox() {
               <SearchUsers opened = {searchModal} onClose = {() => setSearchModal(false)} />
             </Grid>
             <Grid item xs = {12} className = "px-4">
-              <input
-                type = "text"
-                placeholder = "Search here..."
-                onChange = {SearchUser}
-                className = {`form-input py-3 px-3 text-md w-full outline-none rounded-md  ${mode === 'dark' ? 'bg-[#383838]  text-[#adb5bd]' : 'bg-[#f6f6f9]'}`}
-              />
+              <CustomInput type="text" placeholder = "Search here..." onChange = {SearchUser} mode = {mode} />
             </Grid>
             <Grid item xs = {12} className = "px-4">
               <span className = {`text-md ${mode === 'dark' ? 'text-[#d4d8db]' : `${Style.light_grey_opacity_75}`}`}>

@@ -18,6 +18,8 @@ const ChatAreaGrid = {
 
 export function ChatSlider() {
   const open = useSelector((state) => state.open.open);
+  const [foundMessageIndex, setFoundMessageIndex] = useState(-1);
+  const [searchTerm, setSearchTerm] = useState('');
   const {mode} = useThemeContext();
   const chatBoxRef = useRef(null);
   const BoxContainer = {
@@ -183,6 +185,29 @@ export function ChatSlider() {
     setMessages([...messages, newMessageObj]);
     setNewMessage('');
   };
+
+  function handleSearch() {
+    const indices = [];
+    messages.forEach((message, index) => {
+      if (message.text.toLowerCase().includes(searchTerm.toLowerCase())) {
+        indices.push(index);
+      }
+    });
+    // Scroll to the last found message or bottom if no matches are found
+    if (chatBoxRef.current) {
+      if (indices.length > 0) {
+        const lastIndex = indices[indices.length - 1];
+        chatBoxRef.current.children[lastIndex]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start', // Scroll to the top of the container
+        });
+        setFoundMessageIndex(lastIndex);
+      } else {
+        chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+        setFoundMessageIndex(-1);
+      }
+    }
+  }
   return (
     <>
       <Box sx = {{...BoxContainer, background: `${mode === 'dark' ? '#000' : null}`}}>
@@ -192,7 +217,7 @@ export function ChatSlider() {
             xs = {12}
             sx = {{...ChatTopBottomAreaGrid, position: 'sticky', top: 0, backgroundImage: `url(${BgPng})`}}
           >
-            <ChatTopArea />
+            <ChatTopArea setSearchTerm={setSearchTerm} handleSearch={handleSearch} />
           </Grid>
 
           <Grid item xs = {12} sx = {{...ChatAreaGrid, backgroundImage: `url(${BgPng})`}} ref = {chatBoxRef} >
@@ -204,7 +229,9 @@ export function ChatSlider() {
                 }}
                 >
                   <div
-                    className = {`message ${message.sender === 'You' ? 'sender' : 'receiver'} relative ${mode === 'dark' ? 'bg-[#383838] text-[#dae3eb]' : 'bg-[#FFFFFF] text-[#000]'}`}
+                    className = {`message ${message.sender === 'You' ? 'sender' : 'receiver'} relative ${mode === 'dark' ? 'bg-[#383838] text-[#dae3eb]' : 'bg-[#FFFFFF] text-[#000]'}  ${
+            index === foundMessageIndex ? 'highlighted' : ''
+                    }`}
                   >
                     {message.text}
                     <div className = " right-0 bottom-0 text-[10px] ">{message.timestamp}</div>

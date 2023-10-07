@@ -51,7 +51,6 @@ export const getDesignTokens = (mode) => ({
               contrastThreshold: 2.5,
               background: {
                 paper: white,
-                default: lightGray,
               },
               text: {
                 primary: dark,
@@ -68,7 +67,6 @@ export const getDesignTokens = (mode) => ({
                 // primary: "#C4C3CD",
                 // secondary: "#C4C3CD"
                 primary: white,
-                secondary: lightGray,
               },
             }),
   },

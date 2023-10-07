@@ -108,6 +108,7 @@ export function SignIn() {
     try {
       const res = await $crud.post(apiUrl, userData);
       if (res?.errors) {
+        // eslint-disable-next-line no-unsafe-optional-chaining
         const {path: keyName, msg: message} = res?.errors[0];
         setErrors({[keyName]: message});
         return false; // Registration failed due to errors

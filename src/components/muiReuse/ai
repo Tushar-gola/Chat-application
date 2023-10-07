@@ -1,0 +1,25 @@
+const apiKey = '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';
+  const endpoint = 'https://api.openai.com/v1/chat/completions';
+
+  const messages = [
+    {role: 'system', content: 'You are a helpful assistant.'},
+    {role: 'user', content: 'What/"s the weather like today'},
+  ];
+
+  fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({model: 'gpt-3.5-turbo', messages}),
+  })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the API response
+        console.log(data);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error(error);
+      });
