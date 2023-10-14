@@ -71,10 +71,12 @@ export function SignUp() {
   const registerUser = async (userData, apiUrl) => {
     try {
       const response = await axios.post(apiUrl, userData);
+      console.log(response, 'hhhhhhhhhhhhhhhhhh');
       const {token} = response.data.data;
       localStorage.setItem('token', token);
-      return true; // Successful registration
+      return true;
     } catch (error) {
+      console.log(error);
       if (error?.response?.data?.errors.length > 0) {
         const keyName = error?.response?.data?.errors[0]?.path;
         const message = error?.response?.data?.errors[0]?.msg;

@@ -113,7 +113,9 @@ export function SignIn() {
         setErrors({[keyName]: message});
         return false; // Registration failed due to errors
       } else if (res.type == 'success') {
-        localStorage.setItem('token', res?.data?.token);
+        console.log(res, 'res');
+        localStorage.setItem('token', res?.data.token);
+        localStorage.setItem('userInfo', res?.data.id);
         return true; // Successful registration
       }
     } catch (error) {

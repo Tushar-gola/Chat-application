@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import {Box, Grid, Button} from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -8,7 +9,8 @@ import EmojiPicker from 'emoji-picker-react';
 import {useThemeContext} from '../theme/ThemeContextProvider';
 import {CustomInput} from './';
 // eslint-disable-next-line react/prop-types
-export function ChatInputArea({handleSendMessage, setNewMessage, newMessage, handleScroll}) {
+// eslint-disable-next-line react/display-name
+export const ChatInputArea = React.memo(({handleSendMessage, setNewMessage, newMessage, handleScroll}) => {
   const [inputValue, setInputValue] = React.useState(0);
   const [selectedEmoji, setSelectedEmoji] = React.useState(false);
   const inputRef = React.useRef(null);
@@ -16,6 +18,10 @@ export function ChatInputArea({handleSendMessage, setNewMessage, newMessage, han
   const AddEmoji = (item) => {
     setNewMessage((prev) => prev + item?.emoji);
   };
+  const handleChange = React.useCallback((e) => {
+    setNewMessage(e.target.value);
+  }, []);
+
   return (
     <>
       <div style = {{position: 'absolute', bottom: '92px'}}>
@@ -41,9 +47,7 @@ export function ChatInputArea({handleSendMessage, setNewMessage, newMessage, han
         </Grid>
         <Grid item xs = {10} className = "flex justify-center items-end lg:items-center">
           <CustomInput type="text" placeholder="Type your message..." autoFocus value={newMessage} ref={inputRef} onKeyDown={(e) => e.key === 'Enter' ? handleSendMessage() : null}
-            onChange={(e) => {
-              setNewMessage(e.target.value);
-            }} mode = {mode} />
+            onChange={handleChange} mode = {mode} />
         </Grid>
         <Grid item xs = {1} className = "flex gap-2 justify-center items-center ">
           <Box sx = {{display: {xs: 'none', lg: 'block'}}}>
@@ -102,4 +106,4 @@ export function ChatInputArea({handleSendMessage, setNewMessage, newMessage, han
       </Grid>
     </>
   );
-}
+});

@@ -79,7 +79,7 @@ export function SliderBar() {
 
   ];
   const HandleLogout = async () => {
-    const apiUrl = '/delete/user-logout';
+    const apiUrl = '/delete/logout';
     const response = await $crud.delete(apiUrl);
     console.log(response);
     if (response) {

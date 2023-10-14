@@ -8,7 +8,6 @@ export class CrudFactory extends CrudRequest {
     segments.reduce((url, segment) => url + segment, this.baseUrl);
 
   async retrieve(url, data = {}, requestOptions = {}) {
-    console.log(url, data);
     return this.send({
       method: 'GET',
       url: `${url}`,
@@ -43,7 +42,6 @@ export class CrudFactory extends CrudRequest {
   }
   async send(requestOptions = {}) {
     const {url, data, method, notify = true} = requestOptions;
-    console.log(data, 'llllllllll');
     const options = {
       ...requestOptions.ajaxOptions,
       method,
@@ -74,10 +72,48 @@ export class CrudFactory extends CrudRequest {
       type: 'error',
       errors: [],
     };
+    // try {
+    //   this.call('loading', [true]);
+    //   const response = await fetch(fullUrl, options);
+    //   console.log(response, 'llllllllllllll');
+    //   if (response.status === 200) {
+    //     res = await response.json();
+    //     const {type, message} = res;
+    //     if (options.method !== 'GET' && notify) {
+    //       this.notify({
+    //         message,
+    //         type,
+    //       });
+    //     }
+    //   } else if (response.status === 401) {
+    //     localStorage.clear();
+    //     window.location.reload();
+    //   } else {
+    //     return await response.json();
+    //   }
+    // } catch (e) {
+    //   this.call('loading', [false]);
+    //   console.error(e);
+    //   this.notify({
+    //     message: e.message,
+    //     type: 'error',
+    //   });
+    //   throw e;
+    // } finally {
+    //   this.call('loading', [false]);
+    // }
+
+
     try {
       this.call('loading', [true]);
-      const response = await fetch(fullUrl, options);
-      console.log(response, 'llllllllllllll');
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => {
+          reject(new Error('Request Timeout'));
+        }, 10000);
+      });
+
+      const response = await Promise.race([timeoutPromise, fetch(fullUrl, options)]);
+
       if (response.status === 200) {
         res = await response.json();
         const {type, message} = res;
@@ -95,17 +131,21 @@ export class CrudFactory extends CrudRequest {
       }
     } catch (e) {
       this.call('loading', [false]);
-      console.error(e);
-      this.notify({
-        message: e.message,
-        type: 'error',
-      });
-      throw e;
+      if (e.message === 'Request Timeout') {
+        console.error('Request Timeout');
+        // Handle timeout error here
+      } else {
+        console.error(e, 'kkkkkkkkkk');
+        this.notify({
+          message: e.message,
+          type: 'error',
+        });
+        throw e;
+      }
     } finally {
       this.call('loading', [false]);
     }
     const {type} = res;
-    console.log(res, 'lllllllll');
     if (type === 'error') throw res;
 
     return res;

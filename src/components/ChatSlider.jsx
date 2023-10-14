@@ -1,5 +1,5 @@
 import {Box, Grid} from '@mui/material';
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useRef} from 'react';
 import {useSelector} from 'react-redux';
 import {ChatTopArea, ChatInputArea} from './';
 import BgPng from '../assets/image/pattern-05.ffd181cdf9a08b200998.png';
@@ -16,8 +16,10 @@ const ChatAreaGrid = {
   padding: '1rem',
 };
 
-export function ChatSlider() {
+// eslint-disable-next-line react/display-name
+export const ChatSlider = React.memo(() => {
   const open = useSelector((state) => state.open.open);
+  // const id = useSelector((state) => state.open.id);
   const [foundMessageIndex, setFoundMessageIndex] = useState(-1);
   const [searchTerm, setSearchTerm] = useState('');
   const {mode} = useThemeContext();
@@ -162,9 +164,9 @@ export function ChatSlider() {
     chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     scrollToBottom();
-    document.body.scrollTo(0, document.body.scrollHeight);
+    document.body.scrollTo(0, document.body?.scrollHeight);
   }, [messages]);
 
   const handleScroll = () => {
@@ -179,12 +181,13 @@ export function ChatSlider() {
     const newMessageObj = {
       text: newMessage,
       timestamp: currentTime,
-      sender: 'You', // Change this to the sender"s name or identifier
-      receiver: 'Receiver', // Change this to the receiver"s name or identifier
+      sender: 'You',
+      receiver: 'Receiver',
     };
     setMessages([...messages, newMessageObj]);
     setNewMessage('');
   };
+
 
   function handleSearch() {
     const indices = [];
@@ -193,13 +196,12 @@ export function ChatSlider() {
         indices.push(index);
       }
     });
-    // Scroll to the last found message or bottom if no matches are found
     if (chatBoxRef.current) {
       if (indices.length > 0) {
         const lastIndex = indices[indices.length - 1];
         chatBoxRef.current.children[lastIndex]?.scrollIntoView({
           behavior: 'smooth',
-          block: 'start', // Scroll to the top of the container
+          block: 'start',
         });
         setFoundMessageIndex(lastIndex);
       } else {
@@ -208,6 +210,7 @@ export function ChatSlider() {
       }
     }
   }
+  console.log('kkkkkkkkkkkkkkkkk');
   return (
     <>
       <Box sx = {{...BoxContainer, background: `${mode === 'dark' ? '#000' : null}`}}>
@@ -226,13 +229,9 @@ export function ChatSlider() {
                 <Grid item key = {index} xs = {12} sx = {{
                   display: message.sender === 'You' ? 'flex' : 'block',
                   flexDirection: 'column',
-                }}
-                >
+                }}>
                   <div
-                    className = {`message ${message.sender === 'You' ? 'sender' : 'receiver'} relative ${mode === 'dark' ? 'bg-[#383838] text-[#dae3eb]' : 'bg-[#FFFFFF] text-[#000]'}  ${
-            index === foundMessageIndex ? 'highlighted' : ''
-                    }`}
-                  >
+                    className = {`message ${message.sender === 'You' ? 'sender' : 'receiver'} relative ${mode === 'dark' ? 'bg-[#383838] text-[#dae3eb]' : 'bg-[#FFFFFF] text-[#000]'}  ${index === foundMessageIndex ? 'highlighted' : ''}`}>
                     {message.text}
                     <div className = " right-0 bottom-0 text-[10px] ">{message.timestamp}</div>
                   </div>
@@ -249,4 +248,4 @@ export function ChatSlider() {
       </Box>
     </>
   );
-}
+});

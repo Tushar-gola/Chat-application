@@ -9,7 +9,7 @@ export const ChatArea = createSlice({
   name: 'ChatArea',
   initialState,
   reducers: {
-    open: (state, {payload}) => {
+    open: (state, {payload = 0}) => {
       state.open = '0';
       state.id = payload;
     },
