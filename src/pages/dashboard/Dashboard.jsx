@@ -3,23 +3,20 @@ import {Grid} from '@mui/material';
 import {useSelector} from 'react-redux';
 import {FindUser, SliderBar, ChatBox, ChatSlider} from '../../components';
 import {ChatStarting} from '../';
-// import {socket} from '../../socket';
+import {socket} from '../../socket';
 export function Dashboard() {
   const ToggleComponent = useSelector((state) => state.toggle.name);
   const id = useSelector((state) => state.open.id);
+  const authSocket = ()=>{
+    const token = localStorage.getItem('userInfo');
+    if (token != null) {
+      socket.connect();
+      socket.auth.userId = +token;
+    }
+  };
   useEffect(()=>{
-    // authSocket();
-    // return ()=>{
-    //   socket.disconnected();
-    // }
+    authSocket();
   }, []);
-  // const authSocket = ()=>{
-  //   const token = localStorage.getItem('userInfo');
-  //   if (token != null) {
-  //     socket.connect();
-  //     socket.auth.userId = +token;
-  //   }
-  // };
   return (
     <>
       <Grid container>
