@@ -71,9 +71,9 @@ export function SignUp() {
   const registerUser = async (userData, apiUrl) => {
     try {
       const response = await axios.post(apiUrl, userData);
-      console.log(response, 'hhhhhhhhhhhhhhhhhh');
       const {token, id} = response.data.data;
       localStorage.setItem('token', token);
+      localStorage.setItem('usersMessages',JSON.stringify([]))
       localStorage.setItem('userInfo', id);
       return true;
     } catch (error) {
@@ -85,7 +85,7 @@ export function SignUp() {
       }
       setSnackError({type: error?.response?.data.type, message: error?.response?.data.message});
       handleClick();
-      return false; // Registration failed
+      return false;
     }
   };
   const HandleGoogleAuth = async () => {

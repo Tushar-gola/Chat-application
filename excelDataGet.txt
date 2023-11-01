@@ -1,0 +1,43 @@
+import React, { useState } from 'react';
+import * as XLSX from 'xlsx';
+
+export default function App() {
+  const [excelData, setExcelData] = useState(null);
+  const handleFileUpload = (e) => {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const data = e.target.result;
+      const workbook = XLSX.read(data, { type: 'array' });
+      const sheetName = workbook.SheetNames[0];
+      const sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);
+      setExcelData(sheet);
+    };
+    reader.readAsArrayBuffer(file);
+  };
+  return (
+    <div>
+      <input type="file" accept=".xlsx" onChange={handleFileUpload} />
+      {excelData && (
+        <table>
+          <thead>
+            <tr>
+              {Object.keys(excelData[0]).map((header) => (
+                <th key={header}>{header}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {excelData.map((row, index) => (
+              <tr key={index}>
+                {Object.values(row).map((cell, cellIndex) => (
+                  <td key={cellIndex}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  )
+}

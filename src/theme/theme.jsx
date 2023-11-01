@@ -1,8 +1,6 @@
-import {amber} from '@mui/material/colors';
-
 const theme = {
   palette: {
-    primary: amber,
+    primary: '#4eac6d',
   },
 };
 
@@ -44,7 +42,7 @@ export const getDesignTokens = (mode) => ({
   },
   palette: {
     primary: {
-      main: '#9747FF',
+      main: '#4eac6d',
     },
     ...(mode === 'light' ?
             {

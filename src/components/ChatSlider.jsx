@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable no-undef */
 import {Box, Grid} from '@mui/material';
 import React, {useState, useRef} from 'react';
@@ -19,7 +20,6 @@ const ChatAreaGrid = {
   overflowY: 'auto',
   padding: '1rem',
 };
-
 // eslint-disable-next-line react/display-name
 export const ChatSlider = React.memo(() => {
   const open = useSelector((state) => state.open.open);
@@ -98,7 +98,7 @@ export const ChatSlider = React.memo(() => {
   function handleSearch() {
     const indices = [];
     messages.forEach((message, index) => {
-      if (message.text.toLowerCase().includes(searchTerm.toLowerCase())) {
+      if (message.message?.includes(searchTerm)) {
         indices.push(index);
       }
     });
@@ -121,7 +121,7 @@ export const ChatSlider = React.memo(() => {
     try {
       console.log(data);
       setReload(!reload);
-      const chatIndex = userMessagess.findIndex((chat) => chat.sender == myId && chat.receiver == userId);
+      const chatIndex = userMessagess.findIndex((chat) => chat.sender == data.receiver && chat.receiver == data.sender);
       if (chatIndex !== -1) {
         userMessagess[chatIndex].message.push({sender: +data.sender, receiver: +data.receiver, message: data.message});
       } else {

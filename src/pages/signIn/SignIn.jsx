@@ -115,6 +115,7 @@ export function SignIn() {
       } else if (res.type == 'success') {
         console.log(res, 'res');
         localStorage.setItem('token', res?.data.token);
+        localStorage.setItem('usersMessages',JSON.stringify([]))
         localStorage.setItem('userInfo', res?.data.id);
         return true; // Successful registration
       }
