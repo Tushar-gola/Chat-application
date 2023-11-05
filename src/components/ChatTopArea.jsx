@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React, { useEffect } from 'react';
 import { Grid } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,7 +13,8 @@ import { useSelector } from 'react-redux';
 export function ChatTopArea({ setSearchTerm, handleSearch }) {
   const { mode } = useThemeContext();
   const [toggleSearch, setToggleSearch] = React.useState(false);
-  const [isActive, setIsActive] = React.useState(false)
+  const [isActive, setIsActive] = React.useState(false);
+  const [typing, setTyping] = React.useState(false)
   const details = useSelector((state) => state.open);
   const icon = { color: '#495057', fontSize: '1.8rem', cursor: 'pointer' };
   useEffect(() => {
@@ -20,13 +22,21 @@ export function ChatTopArea({ setSearchTerm, handleSearch }) {
       setIsActive(details.status)
     }
   }, [details.status])
-  console.log(details);
-  socket.on('liveStatus', (data) => {
-    console.log(data);
-    if (data.id == details?.userId) {
+  socket.off('liveStatus').on('liveStatus', (data) => {
+    if (data.id == details?.id) {
       setIsActive(data.status)
     }
-  })
+  });
+  socket.off('typeStatus').on('typeStatus', (data) => {
+    console.log(data);
+    if (data.id == details?.id) {
+      setTyping(true);
+      const timeout = setTimeout(() => {
+        setTyping(false);
+      }, 2000);
+      return () => clearTimeout(timeout);
+    }
+  });
   return (
     <Grid container sx={{
       height: '100%',
@@ -41,7 +51,8 @@ export function ChatTopArea({ setSearchTerm, handleSearch }) {
           </div>
           <div>
             <div className={`text-lg ${mode === 'dark' ? 'text-white' : 'text-[#495057]'} `}>{details.name}</div>
-            <span className="text-sm">{isActive ? 'Active' : "offline"}</span>
+            {typing ? <span className="text-sm">{typing && 'istyping...'}</span> : <span className="text-sm">{isActive ? 'Active' : "offline"}</span>}
+
           </div>
         </div>
       </Grid>

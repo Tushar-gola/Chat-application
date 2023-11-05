@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Box, Grid, Button, IconButton } from '@mui/material';
@@ -9,18 +10,23 @@ import EmojiPicker from 'emoji-picker-react';
 import { useThemeContext } from '../theme/ThemeContextProvider';
 import { CustomInput } from './';
 import Assests from './assests';
+import { socket } from '../socket';
+import { useSelector } from 'react-redux';
 export const ChatInputArea = React.memo(({ handleSendMessage, setNewMessage, newMessage, handleScroll }) => {
   const [inputValue, setInputValue] = React.useState(0);
   const [selectedEmoji, setSelectedEmoji] = React.useState(false);
   const [toggleAssets, setToggleAssets] = React.useState(false)
+  const userId = useSelector((state) => state.open.id);
   const inputRef = React.useRef(null);
+  const myId = localStorage.getItem('userInfo');
   const { mode } = useThemeContext();
   const AddEmoji = (item) => {
     setNewMessage((prev) => prev + item?.emoji);
   };
   const handleChange = React.useCallback((e) => {
     setNewMessage(e.target.value);
-  }, []);
+    socket.emit('typing', { receiver: +userId, sender: +myId })
+  }, [userId]);
 
   return (
     <>

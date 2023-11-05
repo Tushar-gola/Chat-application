@@ -113,14 +113,13 @@ export function SignIn() {
         setErrors({[keyName]: message});
         return false; // Registration failed due to errors
       } else if (res.type == 'success') {
-        console.log(res, 'res');
         localStorage.setItem('token', res?.data.token);
         localStorage.setItem('usersMessages',JSON.stringify([]))
         localStorage.setItem('userInfo', res?.data.id);
         return true; // Successful registration
       }
     } catch (error) {
-      console.log(error, 'error');
+      console.error(error, 'error');
       setSnackError({type: error?.type, message: error?.message});
       handleClick();
       return false; // Registration failed due to an exception

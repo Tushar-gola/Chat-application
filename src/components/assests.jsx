@@ -23,7 +23,6 @@ export default function Assests({ close, toggleAssets }) {
     //     const file = event.target.files[0];
     //     setSelectedFile(file);
     // }
-    console.log(selectedFile);
     return (
         <Box sx={{ width: "100%", height: "180px", position: "absolute", zIndex: toggleAssets ? "1" : '-1', bottom: toggleAssets ? "92px" : '70px', visibility: toggleAssets ? "visible" : "hidden", transition: ".2s ease" }}>
             <IconButton onClick={close}>

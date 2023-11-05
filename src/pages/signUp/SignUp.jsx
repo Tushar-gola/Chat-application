@@ -77,7 +77,7 @@ export function SignUp() {
       localStorage.setItem('userInfo', id);
       return true;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       if (error?.response?.data?.errors.length > 0) {
         const keyName = error?.response?.data?.errors[0]?.path;
         const message = error?.response?.data?.errors[0]?.msg;

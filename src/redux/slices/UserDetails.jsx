@@ -9,7 +9,6 @@ export const UserDetails = createSlice({
   initialState,
   reducers: {
     getData: (state, {payload}) => {
-      console.log(state, payload, 'lllllllllll');
       state.data = payload;
     },
     Cancel: (state) => {

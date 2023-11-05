@@ -14,7 +14,6 @@ export const ChatArea = createSlice({
   initialState,
   reducers: {
     open: (state, { payload = 0 }) => {
-      console.log(payload);
       state.open = '0';
       state.id = payload.id;
       state.status = payload.isActive

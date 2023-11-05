@@ -1,16 +1,15 @@
 /* eslint-disable eqeqeq */
-/* eslint-disable no-undef */
-import {Box, Grid} from '@mui/material';
-import React, {useState, useRef} from 'react';
-import {useSelector} from 'react-redux';
-import {ChatTopArea, ChatInputArea} from './';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box, Grid } from '@mui/material';
+import React, { useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { ChatTopArea, ChatInputArea } from './';
 import BgPng from '../assets/image/pattern-05.ffd181cdf9a08b200998.png';
-import {useThemeContext} from '../theme/ThemeContextProvider';
-import {$crud} from '../CRUD';
-import {socket} from '../socket';
-// import secureLocalStorage from 'react-secure-storage';
+import { useThemeContext } from '../theme/ThemeContextProvider';
+import { $crud } from '../CRUD';
+import { socket } from '../socket';
 const ChatTopBottomAreaGrid = {
-  height: {xs: '70px', lg: '92px'},
+  height: { xs: '70px', lg: '92px' },
 };
 const ChatAreaGrid = {
   height: {
@@ -20,7 +19,6 @@ const ChatAreaGrid = {
   overflowY: 'auto',
   padding: '1rem',
 };
-// eslint-disable-next-line react/display-name
 export const ChatSlider = React.memo(() => {
   const open = useSelector((state) => state.open.open);
   const userId = useSelector((state) => state.open.id);
@@ -30,13 +28,13 @@ export const ChatSlider = React.memo(() => {
   const [searchTerm, setSearchTerm] = useState('');
   const [newMessage, setNewMessage] = useState('');
   const [reload, setReload] = useState(false);
-  const {mode} = useThemeContext();
+  const { mode } = useThemeContext();
   const chatBoxRef = useRef(null);
   const BoxContainer = {
     width: '100%',
     height: '100dvh',
-    position: {xs: 'fixed', lg: 'static'},
-    right: {xs: `${open}`, lg: '0'},
+    position: { xs: 'fixed', lg: 'static' },
+    right: { xs: `${open}`, lg: '0' },
     top: 0,
     zIndex: '100',
   };
@@ -54,7 +52,7 @@ export const ChatSlider = React.memo(() => {
     scrollToBottom();
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = React.useCallback(() => {
     if (newMessage.trim() === '') {
       return;
     }
@@ -70,30 +68,22 @@ export const ChatSlider = React.memo(() => {
     setNewMessage('');
     const chatIndex = userMessagess.findIndex((chat) => chat.sender == myId && chat.receiver == userId);
     if (chatIndex !== -1) {
-      userMessagess[chatIndex].message.push({sender: +myId, receiver: +userId, message: newMessage});
+      userMessagess[chatIndex].message.push({ sender: +myId, receiver: +userId, message: newMessage });
     } else {
-      userMessagess.push({sender: myId, receiver: userId, message: [{sender: +myId, receiver: +userId, message: newMessage}]});
+      userMessagess.push({ sender: myId, receiver: userId, message: [{ sender: +myId, receiver: +userId, message: newMessage }] });
     }
     localStorage.setItem('usersMessages', JSON.stringify(userMessagess));
     socket.emit('sendMessage', newMessageObj);
-  };
+  }, [newMessage, myId, userId, reload, messages]);
   const userMessagesCreate = async () => {
     try {
       const apiUrl = '/create/messages';
-      const res = await $crud.post(apiUrl, {receiver: +userId, sender: +myId, message: newMessage, time: +Date.now()});
+      const res = await $crud.post(apiUrl, { receiver: +userId, sender: +myId, message: newMessage, time: +Date.now() });
       console.log(res);
     } catch (error) {
       console.error(error);
     }
   };
-  // const getMessage = async () => {
-  //   const apiUrl = '/retrieve/messages';
-  //   const res = await $crud.retrieve(apiUrl, {receiver: userId, sender: myId} );
-  //   setMessages(res?.data?.messages || []);
-  // };
-  // React.useEffect(()=>{
-  //   // getMessage();
-  // }, []);
 
   function handleSearch() {
     const indices = [];
@@ -116,43 +106,52 @@ export const ChatSlider = React.memo(() => {
       }
     }
   }
-
-  socket.off('recieveMessage').on('recieveMessage', (data)=>{
+  socket.off('recieveMessage').on('recieveMessage', (data) => {
     try {
-      console.log(data);
       setReload(!reload);
+      // const newMessageObj = {
+      //   message: data.message,
+      //   time: +Date.now(),
+      //   sender: data.sender,
+      //   receiver: data.receiver,
+      // };
+      // setMessages([...messages, newMessageObj]); work
       const chatIndex = userMessagess.findIndex((chat) => chat.sender == data.receiver && chat.receiver == data.sender);
       if (chatIndex !== -1) {
-        userMessagess[chatIndex].message.push({sender: +data.sender, receiver: +data.receiver, message: data.message});
+        userMessagess[chatIndex].message.push({ sender: +data.sender, receiver: +data.receiver, message: data.message });
       } else {
-        userMessagess.push({sender: +data.receiver, receiver: +data.sender, message: [{sender: +data.sender, receiver: +data.receiver, message: data.message}]});
+        userMessagess.push({ sender: +data.receiver, receiver: +data.sender, message: [{ sender: +data.sender, receiver: +data.receiver, message: data.message }] });
       }
       localStorage.setItem('usersMessages', JSON.stringify(userMessagess));
     } catch (error) {
       console.error(error.message);
     }
   });
-  const userChats = ()=>{
-    const messages = userMessagess.filter((data)=> data.sender == +myId && data.receiver == +userId);
-    setMessages(messages[0]?.message || []);
+
+  const userChats = () => {
+    const filteredMessages = userMessagess.find(
+      (data) => data.sender == +myId && data.receiver == +userId
+    );
+    const newMessages = filteredMessages ? filteredMessages.message : [];
+    setMessages(newMessages);
   };
 
-  React.useEffect(()=>{
+  React.useEffect(() => {
     userChats();
   }, [reload, userId]);
   return (
     <>
-      <Box sx={{...BoxContainer, background: `${mode === 'dark' ? '#000' : null}`}}>
+      <Box sx={{ ...BoxContainer, background: `${mode === 'dark' ? '#000' : null}` }}>
         <Grid container >
           <Grid
             item
             xs={12}
-            sx={{...ChatTopBottomAreaGrid, position: 'sticky', top: 0, backgroundImage: `url(${BgPng})`}}
+            sx={{ ...ChatTopBottomAreaGrid, position: 'sticky', top: 0, backgroundImage: `url(${BgPng})` }}
           >
             <ChatTopArea setSearchTerm={setSearchTerm} handleSearch={handleSearch} />
           </Grid>
 
-          <Grid item xs={12} sx={{...ChatAreaGrid, backgroundImage: `url(${BgPng})`}} ref={chatBoxRef} >
+          <Grid item xs={12} sx={{ ...ChatAreaGrid, backgroundImage: `url(${BgPng})` }} ref={chatBoxRef} >
             <Grid container ref={chatBoxRef}>
               {messages?.map((message, index) => {
                 return (

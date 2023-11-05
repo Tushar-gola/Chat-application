@@ -7,7 +7,6 @@ import { open } from '../redux';
 import { $crud } from '../CRUD';
 import { StyleBadge, CustomInput, SearchUsers } from './';
 import { socket } from '../socket';
-import { decryptMessage, encryptMessage } from '../functions';
 export function ChatBox() {
   const dispatch = useDispatch();
   const [activeItem, setActiveItem] = React.useState(null);
@@ -22,7 +21,7 @@ export function ChatBox() {
         setUsers(res.data || []);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
   useEffect(() => {
@@ -38,13 +37,9 @@ export function ChatBox() {
     );
     setUsers(filtered);
   };
-  socket.on('activeStatus', (data) => {
+  socket.off('activeStatus').on('activeStatus', (data) => {
     getUsers();
   })
-  const yes = encryptMessage('hello', process.env.REACT_APP_SECRET_KEY)
-  console.log(yes);
-  const yes2 = decryptMessage(yes, process.env.REACT_APP_SECRET_KEY)
-  console.log(yes2);
   return (
     <>
       <Grid container >
